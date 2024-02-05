@@ -415,7 +415,7 @@
           redirect: 'follow'
       };
       // make API call with parameters and use promises to get response
-      fetch("https://6b96dl03s5.execute-api.us-east-2.amazonaws.com/default/getImage", requestOptions)
+      fetch("-", requestOptions)
       .then(response => response.text())
       .then(data =>
         {
@@ -554,7 +554,7 @@
             redirect: 'follow'
         };
         // make API call with parameters and use promises to get response
-        fetch("https://iftztg8uc6.execute-api.us-east-2.amazonaws.com/default/FormReplyListener", requestOptions)
+        fetch("-", requestOptions)
         .then(response => response.text())
         .then(data =>
           {
@@ -608,7 +608,7 @@
             redirect: 'follow'
         };
 
-        fetch("https://iftztg8uc6.execute-api.us-east-2.amazonaws.com/default/FormReplyListener", requestOptions)
+        fetch("-", requestOptions)
         .then(response => response.text())
         .then(data => {
           console.log(data)
