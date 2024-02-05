@@ -682,7 +682,7 @@ function editRecipientApi(oldName){
                                         redirect: 'follow'
           };
           // make API call with parameters and use promises to get response
-          fetch("https://od2zy7djnl.execute-api.us-east-2.amazonaws.com/default/AddRecipientAPI", requestOptions)
+          fetch("-", requestOptions)
                                     .then(response => response.text())
                                     .then(
                                         function(result) {
@@ -716,7 +716,7 @@ function editOnClick(o){
              redirect: 'follow'
  };
  // make the API call with parameters and use promises to get response
- fetch("https://6ktmxhvh0m.execute-api.us-east-2.amazonaws.com/default/GetRecipientByName?nameString="+p.cells[0].innerHTML, requestOptions).then(
+ fetch("-?nameString="+p.cells[0].innerHTML, requestOptions).then(
      response => response.text()).then(
     function(result) {
       console.log(result)
@@ -794,7 +794,7 @@ var GetRecipientsAPI = (refreshBool)=>{
           
 
           // make API call with parameters and use promises to get response
-          fetch("https://yfg76zcysa.execute-api.us-east-2.amazonaws.com/default/GetRecipients?", requestOptions).then(response => response.text()).then(
+          fetch("-?", requestOptions).then(response => response.text()).then(
                function(result) {
                  var table = document.getElementById("recList");
                   var oldCount = table.rows.length;
@@ -905,7 +905,7 @@ var GetActiveMatchingsAPI = ()=>{
               redirect: 'follow'
           };
           // make API call with parameters and use promises to get response
-          fetch("https://wkv02e4yl2.execute-api.us-east-2.amazonaws.com/default/getActiveMatchings", requestOptions).then(response => response.text())
+          fetch("-", requestOptions).then(response => response.text())
            .then(
                function(result) {
                     console.log("GetActiveMatching() Result:",result);
@@ -1063,7 +1063,7 @@ var GetPastMatchingsAPI = ()=>{
 
            var selectedDate = document.getElementById("dateRangeSelector").innerHTML;
            console.log(selectedDate)
-           console.log("https://qzn8k6ph4d.execute-api.us-east-2.amazonaws.com/default/getPastMathchingsAPI?" + new URLSearchParams({dateRange: selectedDate}))
+           console.log("-?" + new URLSearchParams({dateRange: selectedDate}))
 
           var myHeaders = new Headers();
           var requestOptions = {
@@ -1072,7 +1072,7 @@ var GetPastMatchingsAPI = ()=>{
               redirect: 'follow'
           };
           // make API call with parameters and use promises to get response
-          fetch("https://qzn8k6ph4d.execute-api.us-east-2.amazonaws.com/default/getPastMathchingsAPI?" + new URLSearchParams({dateRange: selectedDate}), requestOptions).then(response => response.text())
+          fetch("-?" + new URLSearchParams({dateRange: selectedDate}), requestOptions).then(response => response.text())
            .then(
                function(result) {
                     console.log("GetPastMatching() Result:",result);
@@ -1311,7 +1311,7 @@ function deleteDonationAPI(element){
       redirect: 'follow'
   };
 
-  var url = "https://7eu9xw2oma.execute-api.us-east-2.amazonaws.com/default/editMatchings"
+  var url = "-"
   // make API call with parameters and use promises to get response
   fetch(url, requestOptions)
   .then(response => response.text())
@@ -1409,7 +1409,7 @@ function editDonationApi(id){
       redirect: 'follow'
   };
 
-  var url = "https://7eu9xw2oma.execute-api.us-east-2.amazonaws.com/default/editMatchings"
+  var url = "-"
   // make API call with parameters and use promises to get response
   fetch(url, requestOptions)
   .then(response => response.text())
@@ -1478,7 +1478,7 @@ function addDonationApi(){
       redirect: 'follow'
   };
 
-  var url = "https://7eu9xw2oma.execute-api.us-east-2.amazonaws.com/default/editMatchings"
+  var url = "-"
   // make API call with parameters and use promises to get response
   fetch(url, requestOptions)
   .then(response => response.text())
@@ -1517,7 +1517,7 @@ function DeleteRecipientAPI(recipientName){
                redirect: 'follow'
            };
 
-           var url = "https://xy6ff20rf6.execute-api.us-east-2.amazonaws.com/default/DeleteRecipient"
+           var url = "-"
            // make API call with parameters and use promises to get response
            var response = fetch(url, requestOptions);
            console.log(response);
@@ -1600,7 +1600,7 @@ function AddRecipientAPI(){
                                         redirect: 'follow'
           };
           // make API call with parameters and use promises to get response
-          fetch("https://od2zy7djnl.execute-api.us-east-2.amazonaws.com/default/AddRecipientAPI", requestOptions)
+          fetch("-", requestOptions)
                                     .then(response => response.text())
                                     .then(
                                         function(result) {
