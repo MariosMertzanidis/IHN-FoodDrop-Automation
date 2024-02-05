@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delivery Information</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/cd953b84bb.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+</head>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+
+  h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
+    height: auto;
+  }
+
+  h2 {
+    font-size: 30px;
+    margin-top: 30px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  b, i {
+  font-weight: bold;
+  }
+
+  .loader {
+  border: 50px solid #f3f3f3; /* Light grey */
+  border-top: 50px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  -webkit-animation: spin 2.5s linear infinite; /* Safari */
+  animation: spin 2.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+  .card {
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 20px;
+        max-width: 500px;
+        margin: auto;
+  }
+
+  .card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  .card input[type=text], .card input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  }
+
+  .card button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  }
+
+  .card button:hover {
+  background-color: #45a049;
+  }
+  /* Style the circles */
+  .step {
+    width: 18px;
+    height: 18px;
+    margin: 0 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+
+  /* Style the active/current circle */
+  .step.active {
+    opacity: 1;
+    background-color: #4CAF50;
+  }
+
+
+  .form-check-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .form-check-input {
+    margin-right: 10px;
+  }
+
+  label.checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 10px;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: #555;
+  }
+
+  .checkbox-icon {
+    font-size: 1.2rem;
+    color: #555;
+    transition: transform 0.2s;
+  }
+
+  input[type="checkbox"]:checked + .checkbox-icon {
+    transform: rotate(45deg);
+  }
+
+  .input-group-text {
+      color: #FFFFFF; /* white color for icon */
+      background-color: #000000; /* black color for background */
+  }
+
+  .icon-medium {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  }
+
+  .icon-small {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
+
+  input[type="radio"].form-check-input {
+    width: 15px;
+    height: 15px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #555;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+
+  input[type="checkbox"].form-check-input {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+  }
+
+
+  .col-form-label {
+    padding: 0;
+    padding-left: 15px;
+  }
+
+  </style>
+
+</head>
+
+<body onload="getData()">
+  <div style="max-width: 1000px; margin: auto;">
+      <div style="background-color: #fff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,.1); padding: 20px;">
+        <form>
+        <div class="container">
+                <center>
+                    <h1>Food Drop Donation Page</h1>
+                    <img src="http://indyfooddrop.org/wp-content/uploads/2017/01/Indy-Food-Drop-Logo-edit2-01.png" style="width:20%;height:20%;">
+                    <h2 id="important_message"></h2>
+                  </center>
+
+                <div id="information_tab" class="tab-pane" style="display:none">
+                      <h2>Delivery Information</h2>
+                      <hr>
+
+                      <h4> Food information </h4>
+                      <hr>
+                      <p>Food type: <strong id="food_type"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                      <p>Amount: <strong id="food_amount"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                      <p>It was rejected due to: <strong id="rejection_reason"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                      <p>The products are <strong id="refrig"><i class="fa fa-spinner fa-spin"></i></strong> and <strong id="bulk"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+
+                      <hr>
+                      <h4> Driver information </h4>
+                      <hr>
+                      <p>Driver's current location: <strong id="current_location"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                      <p>Driver's estimated time of departure (ETD) from current location (in driver's timezone): <strong id="driver_departure"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                      <p>ETA to your location (&#177 30mins): <strong id="eta"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                      <div id="willingToWait" style="display:none"><p>The truck driver is willing to arrive the next business day <strong id="nextBusinessDay"></strong> if needed.</p></div>
+                      <div id = "company_container">
+                      <p>Driver's Company: <strong id="company"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                      </div>
+                      <div id= "image_container">
+                      <hr>
+                      <h4> Cargo image </h4>
+                      <hr>
+                      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/4QBwRXhpZgAASUkqAAgAAAABAA4BAgBOAAAAGgAAAAAAAABMb2FkaW5nIENpcmNsZSBJY29uIEFuaW1hdGlvbiBvbiBXaGl0ZSBCYWNrZ3JvdW5kLiA0SyBWaWRlbyBMb29wYWJsZSBQcmVsb2FkZXL/4QVlaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIj4KCTxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CgkJPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczpJcHRjNHhtcENvcmU9Imh0dHA6Ly9pcHRjLm9yZy9zdGQvSXB0YzR4bXBDb3JlLzEuMC94bWxucy8iICAgeG1sbnM6R2V0dHlJbWFnZXNHSUZUPSJodHRwOi8veG1wLmdldHR5aW1hZ2VzLmNvbS9naWZ0LzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGx1cz0iaHR0cDovL25zLnVzZXBsdXMub3JnL2xkZi94bXAvMS4wLyIgIHhtbG5zOmlwdGNFeHQ9Imh0dHA6Ly9pcHRjLm9yZy9zdGQvSXB0YzR4bXBFeHQvMjAwOC0wMi0yOS8iIHhtbG5zOnhtcFJpZ2h0cz0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3JpZ2h0cy8iIHBob3Rvc2hvcDpDcmVkaXQ9IkdldHR5IEltYWdlcyIgR2V0dHlJbWFnZXNHSUZUOkFzc2V0SUQ9IjEzMDI0MzY1OTQiIHhtcFJpZ2h0czpXZWJTdGF0ZW1lbnQ9Imh0dHBzOi8vd3d3LmlzdG9ja3Bob3RvLmNvbS9sZWdhbC9saWNlbnNlLWFncmVlbWVudD91dG1fbWVkaXVtPW9yZ2FuaWMmYW1wO3V0bV9zb3VyY2U9Z29vZ2xlJmFtcDt1dG1fY2FtcGFpZ249aXB0Y3VybCIgPgo8ZGM6Y3JlYXRvcj48cmRmOlNlcT48cmRmOmxpPlBldGVyUGVuY2lsPC9yZGY6bGk+PC9yZGY6U2VxPjwvZGM6Y3JlYXRvcj48ZGM6ZGVzY3JpcHRpb24+PHJkZjpBbHQ+PHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ij5Mb2FkaW5nIENpcmNsZSBJY29uIEFuaW1hdGlvbiBvbiBXaGl0ZSBCYWNrZ3JvdW5kLiA0SyBWaWRlbyBMb29wYWJsZSBQcmVsb2FkZXI8L3JkZjpsaT48L3JkZjpBbHQ+PC9kYzpkZXNjcmlwdGlvbj4KPHBsdXM6TGljZW5zb3I+PHJkZjpTZXE+PHJkZjpsaSByZGY6cGFyc2VUeXBlPSdSZXNvdXJjZSc+PHBsdXM6TGljZW5zb3JVUkw+aHR0cHM6Ly93d3cuaXN0b2NrcGhvdG8uY29tL3Bob3RvL2xpY2Vuc2UtZ20xMzAyNDM2NTk0LT91dG1fbWVkaXVtPW9yZ2FuaWMmYW1wO3V0bV9zb3VyY2U9Z29vZ2xlJmFtcDt1dG1fY2FtcGFpZ249aXB0Y3VybDwvcGx1czpMaWNlbnNvclVSTD48L3JkZjpsaT48L3JkZjpTZXE+PC9wbHVzOkxpY2Vuc29yPgoJCTwvcmRmOkRlc2NyaXB0aW9uPgoJPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KPD94cGFja2V0IGVuZD0idyI/Pgr/7QCQUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAHQcAlAAC1BldGVyUGVuY2lsHAJ4AE5Mb2FkaW5nIENpcmNsZSBJY29uIEFuaW1hdGlvbiBvbiBXaGl0ZSBCYWNrZ3JvdW5kLiA0SyBWaWRlbyBMb29wYWJsZSBQcmVsb2FkZXIcAm4ADEdldHR5IEltYWdlc//bAEMACAoKCwoLDQ0NDQ0NEA8QEBAQEBAQEBAQEBISEhUVFRISEhAQEhIUFBUVFxcXFRUVFRcXGRkZHh4cHCMjJCsrM//EAIwAAQABBQEBAAAAAAAAAAAAAAAHBQYECAMCAQEBAQEAAAAAAAAAAAAAAAAAAAECEAEAAgECAwUEBAkKBgMBAQAA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" width="200px" height="200px" id="image">
+
+
+                      <hr>
+                    </div>
+                    <div id="additiona_info_container">
+                    <hr>
+                    <h4> Additional information </h4>
+                    <hr>
+                    <p><strong id="additional_info"><i class="fa fa-spinner fa-spin"></i></strong>.</p>
+                    </div>
+
+
+                      <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-primary" id="acceptBtn" onclick="acceptButtonFunc()">Accept  <i id="acceptInner"></i></button>
+                        <button type="button" class="btn btn-secondary" id="rejectBtn" onclick="rejectButtonFunc()">Reject</button>
+                      </div>
+
+
+                  </div>
+
+                  <div id="accept_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2>Thank you for accepting the donation!</h2>
+                    <hr>
+                  </center>
+
+                    <h4> Delivery information </h4>
+                    <hr>
+                    <p>Drivers name: <strong id="driver_name"></strong>.</p>
+                    <p>Contact phone: <strong id="contact_phone"></strong>.</p>
+                    <p>ETA: <strong id="eta_accept"></strong>.</p>
+                    <div id="willingToWait_accept" style="display:none"><p>The truck driver is willing to arrive the next business day <strong id="nextBusinessDay_accept"></strong> if needed .</p></div>
+
+
+                  </div>
+
+                  <div id="reject_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2> Thank you for your response!</h2>
+                    <hr>
+                  </center>
+                  </div>
+
+                  <div id="added_queueu_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2> You have been added back to the queue. Be on the lookout for new text messages on your designated phone!</h2>
+                    <hr>
+                  </center>
+                  </div>
+
+                  <div id="error_order_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2> Sorry, as per our system, no responses were being awaited from your end for this order!</h2>
+                    <hr>
+                  </center>
+                  </div>
+
+                  <div id="error_no_matching_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2> Sorry, as per our system, no such order exists!</h2>
+                    <hr>
+                  </center>
+                  </div>
+
+                  <div id="error_old_matching_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2> Sorry, as per our system, this order is no longer available!</h2>
+                    <hr>
+                  </center>
+                  </div>
+
+                  <div id="error_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2> Sorry, something went wrong!</h2>
+                    <hr>
+                  </center>
+                  </div>
+
+                  <div id="already_in_queue_tab" class="tab-pane" style="display:none">
+                    <center>
+                      <hr>
+                    <h2> As per our system, you are already in the queue!</h2>
+                    <hr>
+                  </center>
+                  </div>
+
+                  <div id="loader_tab">
+                  <center>
+                    <hr>
+                    <h2>This might take a few seconds.</h2>
+                    <hr>
+                    <div class="loader"></div>
+                  </center>
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+
+</body>
+
+
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+<script>
+
+
+  function get(name){
+   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+      return decodeURIComponent(name[1]);
+    }
+
+
+    var information_tab = document.getElementById("information_tab");
+    var accept_tab = document.getElementById("accept_tab");
+    var reject_tab = document.getElementById("reject_tab");
+    var error_order_tab = document.getElementById("error_order_tab");
+    var error_no_matching_tab = document.getElementById("error_no_matching_tab");
+    var error_old_matching_tab = document.getElementById("error_old_matching_tab");
+    var loader_tab = document.getElementById("loader_tab");
+    var error_tab = document.getElementById("error_tab");
+    var added_queueu_tab = document.getElementById("added_queueu_tab");
+    var already_in_queueu_tab = document.getElementById("already_in_queue_tab");
+
+    /*
+    information_tab.style.display = "none";
+    accept_tab.style.display = "none";
+    reject_tab.style.display = "none";
+    error_order_tab.style.display = "none";
+    error_no_matching_tab.style.display = "none";
+    error_old_matching_tab.style.display = "none";
+    error_tab.style.display = "none";
+    added_queueu_tab.style.display = "none";
+    */
+
+
+
+    var additional_info_div = document.getElementById("additiona_info_container");
+    var company_name_div = document.getElementById("company_container");
+    var image_div = document.getElementById("image_container");
+
+    additional_info_div.style.display = "none";
+    company_name_div.style.display = "none";
+    image_div.style.display = "none";
+
+    var matchingID = get('matchingID');
+
+    var index = get('index');
+
+    var recipientID = get('recipientID');
+
+    console.log(matchingID);
+
+    console.log(recipientID);
+
+
+
+    function getData() {
+      var myHeaders = new Headers();
+
+
+
+      var raw = JSON.stringify({"matchingID": matchingID, "recipientID": recipientID, "index": index});
+
+      var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+      };
+      // make API call with parameters and use promises to get response
+      fetch("https://6b96dl03s5.execute-api.us-east-2.amazonaws.com/default/getImage", requestOptions)
+      .then(response => response.text())
+      .then(data =>
+        {
+          
+          console.log(data)
+          json_data = JSON.parse(JSON.parse(data));
+        
+          
+          responseType =  json_data.Type;
+
+          if(responseType === "Ok" || responseType === "Re-add_Queueu"){
+            if(responseType === "Re-add_Queueu"){
+              document.getElementById("acceptBtn").innerHTML = "Get re-added to queue"
+              document.getElementById("important_message").innerHTML = "Sorry, as per our system, your time-window for this order has expired. You can always be added back to the queue, using the appropriate button at the end of the page!"
+            }
+
+            var image_received = json_data.image;
+            if(image_received != "-"){
+              document.getElementById("image").src = `data:image/png;base64,${image_received}`;
+              image_div.style.display = "block";
+            }
+
+            if(json_data.willing_to_wait === "True"){
+              document.getElementById("willingToWait").style.display = "block";
+              document.getElementById("willingToWait_accept").style.display = "block";
+
+              document.getElementById("nextBusinessDay_accept").innerHTML = json_data.nextBusinessDay;
+              document.getElementById("nextBusinessDay").innerHTML = json_data.nextBusinessDay;
+
+            }
+
+            document.getElementById("food_type").innerHTML = json_data.food_type;
+            document.getElementById("food_amount").innerHTML = json_data.food_amount;
+            document.getElementById("rejection_reason").innerHTML = json_data.rejection_reason;
+            document.getElementById("eta").innerHTML = json_data.eta;
+            document.getElementById("eta_accept").innerHTML = json_data.eta;
+            document.getElementById("refrig").innerHTML = json_data.refigerated_frozen_stable;
+            document.getElementById("bulk").innerHTML = json_data.bulk_or_package;
+            document.getElementById("current_location").innerHTML = json_data.driver_city;
+
+            var departure_time = json_data.departure_time;
+
+            departure_hourmin =  departure_time.split("T")[1];
+            departure_hour = parseInt(departure_hourmin.split(":")[0]);
+            departure_min = departure_hourmin.split(":")[1];
+
+            var ampm = departure_hour >= 12 ? 'PM' : 'AM';
+            departure_hour = departure_hour % 12;
+            departure_hour = departure_hour ? departure_hour : 12;
+
+            departure_date = departure_time.split("T")[0].split("-");
+
+            departure_day = departure_date[2];
+            departure_month = parseInt(departure_date[1]);
+
+            var daySup = "th"
+            if (departure_day == "01"){
+              daySup = "st"
+            }else if(departure_day == "02"){
+              daySup = "nd"
+            }else if(departure_day == "03"){
+              daySup = "rd"
+            }
+
+            var tempDate = new Date(Date.UTC(2000, departure_month , 1));
+            var monthName = tempDate.toLocaleString('en-US', { month: 'long' });
+
+            document.getElementById("driver_departure").innerHTML = `${departure_hour}:${departure_min} ${ampm} on the ${departure_day}<sup>${daySup}</sup> of ${monthName}`;
+
+
+            var other_info = json_data.additional_info;
+
+            if (other_info != ""){
+              document.getElementById("additional_info").innerHTML = other_info;
+              additional_info_div.style.display = "block";
+            }
+
+            var company_received =  json_data.company_name;
+
+            if (company_received != ""){
+              document.getElementById("company").innerHTML = company_received;
+              company_name_div.style.display = "block";
+            }
+            loader_tab.style.display = "none";
+            information_tab.style.display = "block";
+
+          }else if(responseType === "Old_Matching"){
+            loader_tab.style.display = "none";
+            error_old_matching_tab.style.display = "block";
+          }else if(responseType === "No_Matching"){
+            loader_tab.style.display = "none";
+            error_no_matching_tab.style.display = "block";
+          }else if(responseType === "Already_Accept"){
+            document.getElementById("driver_name").innerHTML = JSON.parse(JSON.parse(data)).driver;
+            document.getElementById("contact_phone").innerHTML = JSON.parse(JSON.parse(data)).drivers_phone;
+            document.getElementById("eta_accept").innerHTML = JSON.parse(JSON.parse(data)).eta;
+            if(JSON.parse(JSON.parse(data)).willing_to_wait === "True"){
+              document.getElementById("willingToWait_accept").style.display = "block";
+              document.getElementById("nextBusinessDay_accept").innerHTML = JSON.parse(JSON.parse(data)).nextBusinessDay;
+            }
+            loader_tab.style.display = "none";
+            accept_tab.style.display = "block";
+          }else if(responseType === "Already_in_queue"){
+            loader_tab.style.display = "none";
+            already_in_queueu_tab.style.display = "block";
+          }else{
+            loader_tab.style.display = "none";
+            error_tab.style.display = "block";
+          }
+
+
+      })
+      .catch(error => {
+        console.log(error);
+        loader_tab.style.display = "none"; 
+        error_tab.style.display = "block";});
+      }
+
+      function acceptButtonFunc(){
+
+        $("#acceptInner").addClass("fa fa-refresh fa-spin");
+        document.getElementById("important_message").innerHTML ="";
+
+
+        information_tab.style.display = "none";
+        loader_tab.style.display = "block";
+
+        var myHeaders = new Headers();
+
+        var raw = JSON.stringify({"matchingID": matchingID, "recipientID": recipientID, "reply": "yes"});
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // make API call with parameters and use promises to get response
+        fetch("https://iftztg8uc6.execute-api.us-east-2.amazonaws.com/default/FormReplyListener", requestOptions)
+        .then(response => response.text())
+        .then(data =>
+          {
+          var responseType =  JSON.parse(JSON.parse(data)).Type;
+          console.log(data);
+          console.log(responseType)
+          if (responseType === "Accept"){
+            document.getElementById("driver_name").innerHTML = JSON.parse(JSON.parse(data)).driver;
+            document.getElementById("contact_phone").innerHTML = JSON.parse(JSON.parse(data)).drivers_phone;
+
+            loader_tab.style.display = "none";
+            accept_tab.style.display = "block";
+          }else if(responseType === "Added_Queue"){
+            loader_tab.style.display = "none";
+            added_queueu_tab.style.display = "block";
+          }else if(responseType === "Already_in_queue"){
+            loader_tab.style.display = "none";
+            already_in_queueu_tab.style.display = "block";
+          }else if(responseType === "Error_Order"){
+            loader_tab.style.display = "none";
+            error_order_tab.style.display = "block";
+          }else if(responseType === "Error_Recipient"){
+            loader_tab.style.display = "none";
+            error_order_tab.style.display = "block";
+          }else{
+            loader_tab.style.display = "none";
+            error_tab.style.display = "block";
+          }
+          })
+        .catch(error => {
+          console.log(error);
+          loader_tab.style.display = "none";
+          error_tab.style.display = "block";});
+        }
+
+
+      function rejectButtonFunc(){
+        information_tab.style.display = "none";
+        loader_tab.style.display = "block";
+
+        document.getElementById("important_message").innerHTML = "";
+
+        var myHeaders = new Headers();
+
+        var raw = JSON.stringify({"matchingID": matchingID, "recipientID": recipientID, "reply": "no"});
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://iftztg8uc6.execute-api.us-east-2.amazonaws.com/default/FormReplyListener", requestOptions)
+        .then(response => response.text())
+        .then(data => {
+          console.log(data)
+          var responseType =  JSON.parse(JSON.parse(data)).Type;
+          console.log(responseType);
+          if(responseType === "Reject"){
+            loader_tab.style.display = "none";
+            reject_tab.style.display = "block";
+          }else if(responseType === "Error_Order"){
+            console.log("I am in");
+            loader_tab.style.display = "none";
+            error_order_tab.style.display = "block";
+          }else if(responseType === "Error_Recipient"){
+            loader_tab.style.display = "none";
+            error_order_tab.style.display = "block";
+          }else{
+            console.log("Oups");
+            loader_tab.style.display = "none";
+            error_tab.style.display = "block";
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          loader_tab.style.display = "none";
+          error_tab.style.display = "block";});
+
+      }
+
+
+
+</script>

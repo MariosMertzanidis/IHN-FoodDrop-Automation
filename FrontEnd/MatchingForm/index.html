@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Food Drop Donation Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/cd953b84bb.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Link to reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+</head>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+
+  h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
+    height: auto;
+  }
+
+  h2 {
+    font-size: 30px;
+    margin-top: 30px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  b, i {
+  font-weight: bold;
+  }
+
+  .card {
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 20px;
+        max-width: 500px;
+        margin: auto;
+  }
+
+  .card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  .card input[type=text], .card input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  }
+
+  .card button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  }
+
+  .card button:hover {
+  background-color: #45a049;
+  }
+  /* Style the circles */
+  .step {
+    width: 18px;
+    height: 18px;
+    margin: 0 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+
+  /* Style the active/current circle */
+  .step.active {
+    opacity: 1;
+    background-color: #4CAF50;
+  }
+
+
+  .form-check-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .form-check-input {
+    margin-right: 10px;
+  }
+
+  label.checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 10px;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: #555;
+  }
+
+  .checkbox-icon {
+    font-size: 1.2rem;
+    color: #555;
+    transition: transform 0.2s;
+  }
+
+  input[type="checkbox"]:checked + .checkbox-icon {
+    transform: rotate(45deg);
+  }
+
+  .input-group-text {
+      color: #FFFFFF; /* white color for icon */
+      background-color: #000000; /* black color for background */
+  }
+
+  .icon-medium {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  }
+
+  .icon-small {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
+
+  input[type="radio"].form-check-input {
+    width: 15px;
+    height: 15px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #555;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+
+  input[type="checkbox"].form-check-input {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+  }
+
+
+  .col-form-label {
+    padding: 0;
+    padding-left: 15px;
+  }
+
+  </style>
+
+</head>
+<body>
+
+  <div style="max-width: 1000px; margin: auto;">
+    <div style="background-color: #fff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,.1); padding: 20px;">
+
+            <form>
+            <div class="container">
+                <center>
+                    <h1>Food Drop Donation Form</h1>
+                    <img src="http://indyfooddrop.org/wp-content/uploads/2017/01/Indy-Food-Drop-Logo-edit2-01.png" style="width:20%;height:20%;">
+                </center>
+
+                    <div class="tab-content">
+                      <div id="about_tab" class="tab-pane active">
+
+                          <h2>About</h2>
+                          <hr>
+                          <p>Food Drop is a program run by the Indy Hunger Network that provides food distributors, truck drivers, and logistics companies with quick and easy options for donating rejected loads of food.</p>
+
+                          <p>Disposing of inedible food is expensive. If your donation is  spoiled or inedible, please do not pass on that cost to the local agencies working to benefit our community.  </p>
+
+                          <p><b><i>Please do not donate alcoholic beverages, spoiled food (including rotten or moldy foods, as well as food stored at unsafe temperature), or non-food items.</i></b></p>
+                          <br>
+
+                          <label class="checkbox-container">
+                            <input type="checkbox" id="delivery" name="delivery" value="yes">
+                            <span>I have at least 1 pallet of product to donate, and I am able to deliver it (in Indiana)</span>
+                          </label>
+                          <br>
+                          <p id="first_check_error_box" role="alert" style="color:red;"></p>
+                          
+                          <label class="checkbox-container">
+                            <input type="checkbox" id="consent" name="consent" value="yes">
+                            <span>I (the driver or the dispatcher) am willing to recieve SMS notification on my phone number regarding the food donation process.</span>
+                          </label>
+                          <br>
+                          <p id="second_check_error_box" role="alert" style="color:red;"></p>
+
+
+                   </div>
+
+
+                  <div id="donor_info_tab" class="tab-pane">
+
+                          <h2>Donor's Information</h2>
+                          <hr>
+
+                          <div class="form-group row align-items-center">
+                            <label for="name" class="col-sm-5 col-form-label">Name:</label>
+                            <div class="col-sm-7">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-user icon-medium"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter your name" id="name" required>
+                              </div>
+                            </div>
+                          </div>
+                          <p id="name_error_box" role="alert" style="color:red;"></p>
+
+                          <hr>
+
+                          <div class="form-group row align-items-center">
+                            <label for="currentCity" class="col-sm-5 col-form-label">Current load location:</label>
+                            <div class="col-sm-7">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-solid fa-map-location-dot icon-medium"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter current load location (city name)" id="currentCity" required autocomplete="off">
+                              </div>
+                            </div>
+                          </div>
+                          <p id="currentCity_error_box" role="alert" style="color:red;"></p>
+
+                          <div class="form-group row align-items-center">
+                            <label for="destinationCity" class="col-sm-5 col-form-label">City headed to (optional):</label>
+                            <div class="col-sm-7">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-thumbtack icon-medium"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="destinationCity" placeholder="Enter destination (city name)" autocomplete="off">
+                              </div>
+                            </div>
+                          </div>
+                          <p id="destinationCity_error_box" role="alert" style="color:red;"></p>
+
+                          <div class="form-group row align-items-center">
+                            <label for="departureTime" class="col-sm-5 col-form-label">Estimated departure time (&#177 30mins):<br/> <sup>Pick a date that is either today or tomorrow in your timezone.</sup></label>
+                            <div class="col-sm-7">
+                              <div class = "input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-clock icon-medium"></i></span>
+                                </div>
+                                <input type="datetime-local" class="form-control" id="departureTime" name="departureTime" required>
+                              </div>
+                            </div>
+                          </div>
+                          <p id="departureTime_error_box" role="alert" style="color:red;"></p>
+
+                          <div id="div_leave_next_day" class="form-group row align-items-center">
+                            <label for="leave_next_day" class="col-sm-5 col-form-label">I am willing to depart the next day a recipient is available (Currently: <strong id="next_bus_day"><i class="fa fa-spinner fa-spin"></i></strong>):</label>
+                            <div class="col-sm-7">
+                              <div class = "input-group">
+                                <input type="checkbox" class="form-control" id="leave_next_day" name="leave_next_day" value = "Yes">
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <hr>
+
+                          <div class="form-group row  pd-flex align-items-center">
+                            <label for="phoneNumber" class="col-sm-5 col-form-label">Phone number:</label>
+                            <div class="col-sm-7">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-solid fa-phone icon-medium"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter phone number" id="phoneNumber" required>
+                              </div>
+                            </div>
+                          </div>
+                          <p id="phoneNumber_error_box" role="alert" style="color:red;"></p>
+
+                          <div class="form-group row pd-flex align-items-center">
+                            <label for="SMS_possible" class="col-sm-5 col-form-label">Can this phone number receive SMS messages?</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="SMS_possible" id="SMS_possible_yes" value="yes">
+                                <label class="form-check-label" for="SMS_possible_yes">Yes</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="SMS_possible" id="SMS_possible_no" value="no">
+                                <label class="form-check-label" for="SMS_possible_no">No</label>
+                              </div>
+                            </div>
+                          </div>
+                          <p id="SMS_possible_error_box" role="alert" style="color:red;"></p>
+
+
+
+                          <div class="form-group row pd-flex align-items-center">
+                            <label class="col-sm-5 col-form-label">Who can we reach using this phone number?</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="phone-option" id="driverphone" value="driver">
+                                <label class="form-check-label" for="driverphone">The driver</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="phone-option" id="dispatcherphone" value="dispatcher">
+                                <label class="form-check-label" for="dispatcherphone">The dispatcher</label>
+                              </div>
+                            </div>
+                          </div>
+                          <p id="whoWeCanReach_error_box" role="alert" style="color:red;"></p>
+
+
+
+                         <hr>
+
+
+                         <div class="form-group row align-items-center">
+                           <label for="companyName" class="col-sm-5 col-form-label">Company name (optional):</label>
+                           <div class="col-sm-7 input-group">
+                             <div class="input-group-prepend">
+                               <span class="input-group-text"><i class="fas fa-building icon-medium"></i></span>
+                             </div>
+                             <input type="text" class="form-control" id="companyName" placeholder="Enter company name">
+                           </div>
+                         </div>
+
+                         <hr>
+
+
+                  </div>
+                  <div id="donation_details_tab" class="tab-pane">
+                          <h2>Donation Details</h2>
+                          <hr>
+
+                          <div class="form-group row align-items-center">
+                                  <label for="imageInput" class="col-sm-5 col-form-label">Image of the donation (optional):</label>
+                                  <div class="col-sm-7 input-group">
+                                    <input type="file" class="form-control-file" id="imageInput" accept="image/*" capture>
+                                  </div>
+                          </div>
+                          <p id="image_error_box" role="alert" style="color:red;"></p>
+                          <hr>
+
+                          <div class="form-group row align-items-center">
+                            <label for="foodType" class="col-sm-5 col-form-label">Type of food to donate:</label>
+                            <div class="col-sm-7 input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa-solid fa-utensils icon-medium"></i></span>
+                              </div>
+                              <input type="text" class="form-control" id="foodType" placeholder="Enter food type">
+                            </div>
+                          </div>
+                          <p id="foodType_error_box" role="alert" style="color:red;"></p>
+
+
+
+
+
+                          <div class="form-group row align-items-center">
+                            <label for="foodAmount" class="col-sm-5 col-form-label">Amount of food to donate:</label>
+                            <div class="col-sm-7">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amountType" id="amountType_pallets">
+                                    <label class="form-check-label" for="amountType_pallets">Pallets</label>
+                                  </div>
+                                </div>
+                                <div class="col-md-9">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fa-solid fa-hashtag icon-medium"></i></span>
+                                    </div>
+                                    <input type="number" class="form-control" id="palletsAmount" placeholder="Enter number of pallets" min="0">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amountType" id="amountType_cases">
+                                    <label class="form-check-label" for="amountType_cases">Cases</label>
+                                  </div>
+                                </div>
+                                <div class="col-md-9">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fa-solid fa-hashtag icon-medium"></i></span>
+                                    </div>
+                                    <input type="number" class="form-control" id="casesAmount" placeholder="Enter number of cases" min="0">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amountType" id="amountType_pounds">
+                                    <label class="form-check-label" for="amountType_pounds">Pounds</label>
+                                  </div>
+                                </div>
+                                <div class="col-md-9">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fa-solid fa-hashtag icon-medium"></i></span>
+                                    </div>
+                                    <input type="number" class="form-control" id="poundsAmount" placeholder="Enter weight in lbs" min="0">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                          <p id="foodAmount_error_box" role="alert" style="color:red;"></p>
+
+
+                          <hr>
+                          <div class="form-group row">
+                            <label for="rejectionReason" class="col-sm-5 col-form-label">Why was the load rejected?</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_mold" value="Spoilage, mold">
+                                <label class="form-check-label" for="reason_mold">Spoilage, mold</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_decay" value="Decay">
+                                <label class="form-check-label" for="reason_decay">Decay</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_temp" value="Temperature">
+                                <label class="form-check-label" for="reason_temp">Temperature</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_damage" value="Damage">
+                                <label class="form-check-label" for="reason_damage">Damage</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_mistake" value="Ordering mistake">
+                                <label class="form-check-label" for="reason_mistake">Ordering mistake</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_overage" value="Overage/overshipment">
+                                <label class="form-check-label" for="reason_overage">Overage/overshipment</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_shifted" value="Pallets have shifted in the truck">
+                                <label class="form-check-label" for="reason_shifted">Pallets have shifted in the truck</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_cosmetic" value="Cosmetic issues (spots, twisting, etc.)">
+                                <label class="form-check-label" for="reason_cosmetic">Cosmetic issues (spots, twisting, etc.)</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_mislabeled" value="Product is mislabeled or on wrong pallets">
+                                <label class="form-check-label" for="reason_mislabeled">Product is mislabeled or on wrong pallets</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_date" value="Short date">
+                                <label class="form-check-label" for="reason_date">Short date</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_lateearly" value="Late or early arrival">
+                                <label class="form-check-label" for="reason_lateearly">Late or early arrival</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_specifications" value="Product doesn&#39;t meet specifications">
+                                <label class="form-check-label" for="reason_specifications">Product doesn&#39;t meet specifications</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rejectionReason" id="reason_other" value="reason_other">
+                                <label class="form-check-label" for="reason_other">Other</label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <p id="rejectionReason_error_box" role="alert" style="color:red;"></p>
+
+                          <div class="form-group row pd-flex align-items-center d-none"  id="decay_div">
+                            <label for="decay_details" class="col-sm-5 col-form-label">Please explain:</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="decay_details" id="reason_decay_low" value="Less than 30&#37; decayed">
+                                <label class="form-check-label" for="decay_details">Less than 30&#37; decayed</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="decay_details" id="reason_decay_high" value="Over than 30&#37; decayed">
+                                <label class="form-check-label" for="decay_details">Over than 30&#37; decayed</label>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="form-group row pd-flex align-items-center d-none"  id="temperature_highlow_div">
+                            <label for="temperature_highlow" class="col-sm-5 col-form-label">Please explain:</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="temperature_highlow" id="reason_temp_high" value="Temperature too high">
+                                <label class="form-check-label" for="temperature_highlow">Temperature too high</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="temperature_highlow" id="reason_temp_low" value="Temperature too low">
+                                <label class="form-check-label" for="temperature_highlow">Temperature too low</label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row pd-flex align-items-center d-none"  id="damage_div">
+                            <label for="damage_select" class="col-sm-5 col-form-label">Please explain:</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="damage_select" id="reason_damage_pallets" value="Damage to the pallets">
+                                <label class="form-check-label" for="damage_select">Damage to the pallets</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="damage_select" id="reason_damage_items_some" value="Damage to items: some cases on some pallets">
+                                <label class="form-check-label" for="damage_select">Damage to items: some cases on some pallets</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="damage_select" id="reason_damage_items_all" value="Damage to items: cases on all pallets">
+                                <label class="form-check-label" for="damage_select">Damage to items: cases on all pallets</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="damage_select" id="reason_damage_packaging" value="Damage to packaging/boxes">
+                                <label class="form-check-label" for="damage_select">Damage to packaging/boxes</label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row pd-flex align-items-center d-none"  id="mistake_div">
+                            <label for="temperature_highlow" class="col-sm-5 col-form-label">Please explain:</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mistake_select" id="reason_mistake_items" value="Wrong items delivered">
+                                <label class="form-check-label" for="mistake_select">Wrong items delivered</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mistake_select" id="reason_mistake_size" value="Wrong size of items delivered">
+                                <label class="form-check-label" for="mistake_select">Wrong size of items delivered</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mistake_select" id="reason_mistake_nolongerneeded" value="Items no longer needed">
+                                <label class="form-check-label" for="mistake_select">Items no longer needed</label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row pd-flex align-items-center d-none"  id="mistake_date_div">
+                            <label for="temperature_highlow" class="col-sm-5 col-form-label">Please explain:</label>
+                            <div class="col-sm-7">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mistake_date_select" id="reason_mistake_date_ripe" value="Produce is too ripe">
+                                <label class="form-check-label" for="mistake_date_select">Produce is too ripe</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mistake_date_select" id="reason_mistake_date_expiration" value="Product is too close to expiration date">
+                                <label class="form-check-label" for="mistake_date_select">Product is too close to expiration date</label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row align-items-center d-none" id="reason_other_div">
+                            <label for="foodType" class="col-sm-5 col-form-label">Please explain:</label>
+                            <div class="col-sm-7 input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa-solid fa-question fa-fw"></i></span>
+                              </div>
+                              <input type="text" class="form-control" id="reason_other_text" placeholder="Enter reason">
+                            </div>
+                          </div>
+                          <p id="secondReason_error_box" role="alert" style="color:red;"></p>
+
+
+                           <hr>
+
+                           <div class="form-group row pd-flex align-items-center">
+                             <label for="bulkorpackaged" class="col-sm-5 col-form-label">The donation is:</label>
+
+                             <div class="col-sm-7">
+                               <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="bulkorpackaged" id="bulkorpackaged_bulk" value="in bulk">
+                                 <label class="form-check-label" for="bulkorpackaged">In bulk</label>
+                               </div>
+                               <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="bulkorpackaged" id="bulkorpackaged_packaged" value="packaged for retail">
+                                 <label class="form-check-label" for="bulkorpackaged">Packaged for retail</label>
+                               </div>
+
+                             </div>
+
+                           </div>
+
+
+                           <p id="bulkorpackaged_error_box" role="alert" style="color:red;"></p>
+
+
+                           <div class="form-group row pd-flex align-items-center">
+                             <label for="fridgeorshelf" class="col-sm-5 col-form-label"> </label>
+                             <div class="col-sm-7">
+                               <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="fridgeorshelf" id="fridgeorshelf_refrigerated" value="refrigerated">
+                                 <label class="form-check-label" for="fridgeorshelf">Refrigerated</label>
+                               </div>
+                               <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="fridgeorshelf" id="fridgeorshelf_frozen" value="frozen">
+                                 <label class="form-check-label" for="fridgeorshelf">Frozen</label>
+                               </div>
+                               <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="fridgeorshelf" id="fridgeorshelf_shelf" value="shelf stable">
+                                 <label class="form-check-label" for="fridgeorshelf">Shelf stable</label>
+                               </div>
+                             </div>
+                           </div>
+                           <p id="fridgeorshelf_error_box" role="alert" style="color:red;"></p>
+
+
+                           <div class="form-group row pd-flex align-items-center">
+                             <label for="otherInformation_package" class="col-sm-5 col-form-label"> </label>
+                             <div class="col-sm-7">
+                               <div class="input-group">
+                                 <div class="input-group-prepend">
+                                   <span class="input-group-text"><i class="fa-solid fa-question-circle icon-medium"></i></span>
+                                 </div>
+                                 <input type="text" class="form-control" id="otherInformation_package" placeholder="Enter additional information">
+                              </div>
+                            </div>
+                           </div>
+
+                           <hr>
+
+
+                  </div>
+                  <div id="confirmation_tab" class="tab-pane">
+                    <h2>Confirmation</h2>
+                    <hr>
+
+                    <h4> Your information </h4>
+                    <hr>
+                    <p>Your name is <strong id="confirm_name"></strong>.</p>
+                    <p>Your phone number is <strong id="confirm_phone"></strong>.</p>
+                    <p>You are currently at <strong id="confirm_location"></strong>.</p>
+                    <p>You will depart <strong id="confirm_departure_time"></strong> on the <strong id="confirm_departure_date"></strong>.</p>
+                    <p>You <strong id="confirm_willing_depart_next"></strong> willing to depart the next business day (Currently: <strong id="confirm_next_bus_day"></strong>).</p>
+                    <hr>
+                    <h4> Donation information </h4>
+                    <hr>
+                    <p> The type of food you'd like to donate is <strong id="confirm_type_of_food"></strong>.</p>
+                    <p> The amount of food you'd like to donate is <strong id="confirm_amount_of_food"></strong></p>
+                    <p> The reason this load was rejected is <strong id="confirm_reason_for_rejection"></strong>.</p>
+                    <p> The products are <strong id="confirm_package_or_bulk"></strong> and <strong id="confirm_refrigerated_frozen_or_stable"></strong>.</p>
+                    <div id="confirm_additional_info_container">
+                    <p> Additional info: <strong id="confirm_additional_info"></strong>
+                    </div>
+
+                  </div>
+
+                  <div id="thanks_tab" class="tab-pane">
+                          <p>
+                          <center><h2>Thank you!</h2></center>
+                          <hr>
+
+                          <p>Thank you for submitting a Food Drop request. You should shortly receive an SMS message on the phone number you provided with further information and instructions. </p>
+                  </div>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-secondary" id="prevBtn">Previous</button>
+                  <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                </div>
+            </div>
+
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+            </div>
+      </form>
+   </div>
+</div>
+
+  <!-- Next/Previous button JS -->
+<script>
+var myHeaders = new Headers();
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+};
+// make API call with parameters and use promises to get response
+fetch("https://7vrd3vmqd1.execute-api.us-east-2.amazonaws.com/default/NextBusinessDay", requestOptions)
+.then(response => response.text())
+.then(data =>
+  {
+    console.log(data)
+    var data_body =  JSON.parse(data).body;
+    console.log(data_body)
+    if (data_body == "Oups"){
+      document.getElementById("div_leave_next_day").style.display = "none";
+    }else{
+      document.getElementById("confirm_next_bus_day").innerHTML = data_body;
+      document.getElementById("next_bus_day").innerHTML = data_body;
+    }
+  })
+.catch(error => {
+  console.log(error);});
+
+
+
+$(document).ready(function() {
+
+  // Initialize the tabs
+  var tabCount = $('.tab-pane').length;
+  var currentIndex = 0;
+  $('.tab-pane').each(function(index, element) {
+    $(element).addClass('tab' + index);
+    if (index === 0) {
+      $(element).addClass('active');
+    } else {
+      $(element).addClass('disabled');
+    }
+  });
+  showTab();
+
+  // Show the next tab
+  $('#nextBtn').click(async function() {
+
+        var isValid = await validateTab(currentIndex);
+
+        if (isValid) {
+            if (currentIndex < tabCount - 1) {
+              currentIndex++;
+              showTab();
+            }
+        } else {
+          document.body.scrollTop = 0; // For Safari
+          document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+  });
+
+  // Show the previous tab
+  $('#prevBtn').click(function() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showTab();
+    }
+  });
+
+  // Show/hide buttons
+  function showTab() {
+          $('.tab-pane').removeClass('active').addClass('disabled');
+          $('.tab' + currentIndex).removeClass('disabled').addClass('active');
+
+
+          if (currentIndex === 0) {
+            $('#prevBtn').prop('disabled', true);
+          } else {
+            $('#prevBtn').prop('disabled', false);
+          }
+
+          if (currentIndex === tabCount - 3) {
+            $('#nextBtn').text('Confirm').addClass('btn-success').prop('disabled', false);
+            $('#nextBtn').click(showConfirmation);
+          }
+          else if (currentIndex === tabCount - 2) {
+            $('#nextBtn').text('Submit').addClass('btn-success').prop('disabled', false);
+          }
+          else if (currentIndex === tabCount - 1) {
+            $('#nextBtn').remove();
+            $('#prevBtn').remove();
+            callMatchingAPI();
+          }
+          else {
+            $('#nextBtn').text('Next').removeClass('btn-success').prop('disabled', false);
+
+          }
+
+          fixStepIndicator(currentIndex);
+  }
+
+
+});
+
+async function validateTab(index) {
+  let valid = true;
+  if( index == 0){
+
+    if (document.getElementById("delivery").checked == false) {
+            const message = document.getElementById("first_check_error_box");
+            message.innerHTML = "For donations significantly smaller than one pallet, and donations that cannot be delivered to Indiana, please contact your local food bank.";
+    }
+    else{
+            const message = document.getElementById("first_check_error_box");
+            message.innerHTML = "";
+    }
+
+    if (document.getElementById("consent").checked == false) {
+            const message_consent = document.getElementById("second_check_error_box");
+            message_consent.innerHTML = "The driver or the dispatcher must agree to recieve SMS notification on their phone number regarding the food donation process.";
+    }
+    else{
+            const message = document.getElementById("second_check_error_box");
+            message.innerHTML = "";
+    }
+
+    valid = document.getElementById("consent").checked && document.getElementById("delivery").checked;
+
+  }
+  else if (index == 1) {
+     let message = document.getElementById("name_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("currentCity_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("departureTime_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("SMS_possible_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("whoWeCanReach_error_box");
+     message.innerHTML = "";
+
+     if (document.getElementById("name").value == "") {
+       message = document.getElementById("name_error_box");
+       message.innerHTML = "Please enter your name.";
+       valid = false;
+     }
+
+     if (document.getElementById("currentCity").value == "") {
+       message = document.getElementById("currentCity_error_box");
+       message.innerHTML = "Please enter a current location.";
+       valid = false;
+     }
+
+
+     const departureTimeCheck = document.getElementById("departureTime");
+
+     if (!departureTimeCheck.checkValidity()) {
+       message = document.getElementById("departureTime_error_box");
+       message.innerHTML = "Please select a departure time.";
+       valid = false;
+     }else{
+      var today = new Date();
+      var tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 2);
+      tomorrow.setHours(0,0,0,0)
+      today.setHours(today.getHours(),today.getMinutes(),0,0)
+
+    
+      var departureDate = new Date(departureTimeCheck.value);
+
+      console.log(today.toISOString())
+      console.log(tomorrow.toISOString())
+      console.log(departureDate.toISOString())
+
+      if (departureDate<today || departureDate>tomorrow){
+        message = document.getElementById("departureTime_error_box");
+        message.innerHTML = "Please select a valid datetime that is not in the past and is not after tommorow.";
+        valid = false;
+      }
+      
+     }
+
+     if (document.getElementById("phoneNumber").value == "") {
+       message = document.getElementById("phoneNumber_error_box");
+       message.innerHTML = "Please enter your phone number.";
+       valid = false;
+     }
+     else{
+       var regExp = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+  	   if (document.getElementById("phoneNumber").value.match(regExp)) {
+            message = document.getElementById("phoneNumber_error_box");
+            message.innerHTML = "";
+       }
+       else{
+		        message = document.getElementById("phoneNumber_error_box");
+            message.innerHTML = "Please enter a valid phone number. Valid formats: 123-456-7890 and 1234567890.";
+            valid = false;
+	     }
+     }
+
+     if (document.getElementById("SMS_possible_no").checked == true || document.getElementById("SMS_possible_yes").checked == false ) {
+       message = document.getElementById("SMS_possible_error_box");
+       message.innerHTML = "Please enter a phone number that can accept SMS messages.";
+       valid = false;
+     }
+
+     if (document.getElementById("dispatcherphone").checked == false && document.getElementById("driverphone").checked == false ) {
+       message = document.getElementById("whoWeCanReach_error_box");
+       message.innerHTML = "Please make a selection.";
+       valid = false;
+     }
+
+
+     var origin = document.getElementById("currentCity").value
+     var destination = document.getElementById("destinationCity").value
+
+     const validateAddr = (addr, valid, message) => {
+       return new Promise((resolve, reject) => {
+         var geocoder = new google.maps.Geocoder();
+         geocoder.geocode({'address': addr}, (results, status) =>{
+           if (status === google.maps.GeocoderStatus.OK && results.length > 0){
+             message.innerHTML ="";
+             resolve(valid);
+           } else{
+             message.innerHTML = "Please enter a correct location.";
+             resolve(false);
+           }
+         });
+       });
+     };
+
+     valid = await validateAddr(origin, valid, document.getElementById("currentCity_error_box"));
+
+
+     if (destination != ""){
+       valid = await validateAddr(destination, valid, document.getElementById("destinationCity_error_box"));
+
+     }else{
+       document.getElementById("destinationCity_error_box").innerHTML = "";
+     }
+
+
+   }
+   else if(index == 2){
+     let message = document.getElementById("foodType_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("foodAmount_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("rejectionReason_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("bulkorpackaged_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("fridgeorshelf_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("secondReason_error_box");
+     message.innerHTML = "";
+     message = document.getElementById("image_error_box");
+     message.innerHTML = "";
+
+     if (document.getElementById("foodType").value == "") {
+       message = document.getElementById("foodType_error_box");
+       message.innerHTML = "Please select type of food.";
+       valid = false;
+     }
+     if (document.getElementById("imageInput")['files'].length > 1){
+       message = document.getElementById("image_error_box");
+       message.innerHTML = "Please enter only one file.";
+       valid = false;
+     }
+     else if(document.getElementById("imageInput")['files'].length != 0  &&  !( /image*/ ).test( document.getElementById("imageInput")['files'][0].type ))
+        {
+          message = document.getElementById("image_error_box");
+          message.innerHTML = "Please enter a valid image type.";
+          valid = false;
+        }
+
+
+     var checkbox_pallets = document.getElementById('amountType_pallets');
+     var checkbox_cases = document.getElementById('amountType_cases');
+     var checkbox_pounds = document.getElementById('amountType_pounds');
+
+
+     if ( !checkbox_pallets.checked && !checkbox_cases.checked & !checkbox_pounds.checked ) {
+       message = document.getElementById("foodAmount_error_box");
+       message.innerHTML = "Please select amount of food (at least one of the choices).";
+       valid = false;
+     }
+     else{
+       if( checkbox_pallets.checked ){
+         if( document.getElementById("palletsAmount").value.trim() === '' || Number(document.getElementById("palletsAmount").value) < 1 ){
+             message = document.getElementById("foodAmount_error_box");
+             message.innerHTML = "Please select amount of food.";
+             valid = false;
+         }
+       }
+
+       if( checkbox_cases.checked ){
+         if( document.getElementById("casesAmount").value.trim() === '' || Number(document.getElementById("casesAmount").value) < 1 ){
+             message = document.getElementById("foodAmount_error_box");
+             message.innerHTML = "Please select amount of food.";
+             valid = false;
+         }
+       }
+
+       if( checkbox_pounds.checked ){
+         if( document.getElementById("poundsAmount").value.trim() === '' || Number(document.getElementById("poundsAmount").value) < 1 ){
+             message = document.getElementById("foodAmount_error_box");
+             message.innerHTML = "Please select amount of food.";
+             valid = false;
+         }
+       }
+
+     }
+
+
+     const rejectionReasonRadios = document.querySelectorAll('input[name="rejectionReason"]');
+     let noneChecked = true;
+
+     rejectionReasonRadios.forEach(radio => {
+       if (radio.checked) {
+         noneChecked = false;
+       }
+     });
+
+     if (noneChecked) {
+       message = document.getElementById("rejectionReason_error_box");
+       message.innerHTML = "Please select a reason.";
+       valid = false;
+     }
+     else {
+       if(document.getElementById("reason_mold").checked == true){
+         message = document.getElementById("rejectionReason_error_box");
+         message.innerHTML = "We cannot accept a spoiled or moldy load. If your load is spoiled or moldy, you will be rejected on site.";
+         valid = false;
+       }
+
+       if(document.getElementById("reason_decay").checked == true){
+         if( document.getElementById("reason_decay_low").checked == false && document.getElementById("reason_decay_high").checked == false ){
+           message = document.getElementById("secondReason_error_box");
+           message.innerHTML = "Please make a selection.";
+           valid = false;
+         }
+         else if( document.getElementById("reason_decay_low").checked == false && document.getElementById("reason_decay_high").checked == true ){
+           message = document.getElementById("secondReason_error_box");
+           message.innerHTML = "We cannot accept a load that is decayed to this extent. If your load is excessively decayed, you will be rejected on site.";
+           valid = false;
+         }
+       }
+
+       if(document.getElementById("reason_temp").checked == true){
+         if( document.getElementById("reason_temp_low").checked == false && document.getElementById("reason_temp_high").checked == false ){
+           message = document.getElementById("secondReason_error_box");
+           message.innerHTML = "Please make a selection.";
+           valid = false;
+         }
+       }
+
+       if(document.getElementById("reason_damage").checked == true){
+         const rejectionReasonDamageRadios = document.querySelectorAll('input[name="damage_select"]');
+         let noneChecked = true;
+
+         rejectionReasonDamageRadios.forEach(radio => {
+           if (radio.checked) {
+             noneChecked = false;
+           }
+         });
+
+         if (noneChecked) {
+           message = document.getElementById("secondReason_error_box");
+           message.innerHTML = "Please make a selection.";
+           valid = false;
+         }
+       }
+
+       if(document.getElementById("reason_mistake").checked == true){
+         if(document.getElementById("reason_mistake_size").checked == false && document.getElementById("reason_mistake_items").checked == false && document.getElementById("reason_mistake_nolongerneeded").checked == false){
+           message = document.getElementById("secondReason_error_box");
+           message.innerHTML = "Please make a selection.";
+           valid = false;
+         }
+       }
+
+       if(document.getElementById("reason_date").checked == true){
+         if(document.getElementById("reason_mistake_date_ripe").checked == false && document.getElementById("reason_mistake_date_expiration").checked == false ) {
+           message = document.getElementById("secondReason_error_box");
+           message.innerHTML = "Please make a selection.";
+           valid = false;
+         }
+       }
+
+       if(document.getElementById("reason_other").checked == true){
+         if(document.getElementById("reason_other_text").value == ""){
+           message = document.getElementById("secondReason_error_box");
+           message.innerHTML = "Please explain.";
+           valid = false;
+         }
+       }
+
+
+     }
+
+     if (document.getElementById("bulkorpackaged_bulk").checked == false && document.getElementById("bulkorpackaged_packaged").checked == false) {
+       message = document.getElementById("bulkorpackaged_error_box");
+       message.innerHTML = "Please make a selection.";
+       valid = false;
+     }
+
+     if(document.getElementById("fridgeorshelf_shelf").checked == false && document.getElementById("fridgeorshelf_frozen").checked == false && document.getElementById("fridgeorshelf_refrigerated").checked == false ){
+       message = document.getElementById("fridgeorshelf_error_box");
+       message.innerHTML = "Please make a selection.";
+       valid = false;
+     }
+     return valid;
+   }
+
+   return valid;
+
+
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+
+
+
+
+</script>
+
+<!-- code for confirmation -->
+<script>
+function showConfirmation() {
+  // Get stuff from the form
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phoneNumber").value;
+  let typeOfFood = document.getElementById("foodType").value;
+  let currentLocation = document.getElementById("currentCity").value;
+  let departure_time = document.getElementById("departureTime").value;
+  let bulk_or_packaged = document.querySelector('input[name=bulkorpackaged]:checked').value;
+  let refigerated_frozen_or_stable = document.querySelector('input[name=fridgeorshelf]:checked').value;
+  let additionalInfo = document.getElementById("otherInformation_package").value;
+
+
+  // Set the confirmation message
+  document.getElementById("confirm_name").innerHTML = name;
+  document.getElementById("confirm_phone").innerHTML = phone;
+  document.getElementById("confirm_type_of_food").innerHTML = typeOfFood;
+  document.getElementById("confirm_location").innerHTML = currentLocation;
+  if (additionalInfo === ""){
+    document.getElementById("confirm_additional_info_container").style.display = "none";
+  }else{
+    document.getElementById("confirm_additional_info").innerHTML = additionalInfo;
+    document.getElementById("confirm_additional_info_container").style.display = "block";
+  }
+
+  departure_hourmin =  departure_time.split("T")[1];
+  departure_hour = parseInt(departure_hourmin.split(":")[0]);
+  departure_min = departure_hourmin.split(":")[1];
+
+  var ampm = departure_hour >= 12 ? 'PM' : 'AM';
+  departure_hour = departure_hour % 12;
+  departure_hour = departure_hour ? departure_hour : 12;
+
+  departure_date = departure_time.split("T")[0].split("-");
+
+  departure_day = departure_date[2];
+  departure_month = parseInt(departure_date[1]);
+
+  var daySup = "th"
+  if (departure_day == "01"){
+    daySup = "st"
+  }else if(departure_day == "02"){
+    daySup = "nd"
+  }else if(departure_day == "03"){
+    daySup = "rd"
+  }
+
+  var tempDate = new Date(Date.UTC(2000, departure_month , 1));
+  var monthName = tempDate.toLocaleString('en-US', { month: 'long' });
+
+
+  document.getElementById("confirm_departure_date").innerHTML = `${departure_day}<sup>${daySup}</sup> of ${monthName}`;
+  document.getElementById("confirm_departure_time").innerHTML = `${departure_hour}:${departure_min} ${ampm} `;
+
+  if (document.getElementById("leave_next_day").checked){
+    document.getElementById("confirm_willing_depart_next").innerHTML = "ARE";
+  }else{
+    document.getElementById("confirm_willing_depart_next").innerHTML = "ARE NOT";
+  }
+
+
+  document.getElementById("confirm_package_or_bulk").innerHTML = bulk_or_packaged;
+  document.getElementById("confirm_refrigerated_frozen_or_stable").innerHTML = refigerated_frozen_or_stable;
+
+
+  let checkbox_pallets = document.getElementById('amountType_pallets');
+  let checkbox_cases = document.getElementById('amountType_cases');
+  let checkbox_pounds = document.getElementById('amountType_pounds');
+
+  document.getElementById("confirm_amount_of_food").innerHTML = "";
+
+  if (checkbox_pallets.checked) {
+    let palletsAmount = document.getElementById("palletsAmount").value;
+    document.getElementById("confirm_amount_of_food").innerHTML += `<li>${palletsAmount} pallets</li>`;
+  }
+  if (checkbox_cases.checked) {
+    let casesAmount = document.getElementById("casesAmount").value;
+    document.getElementById("confirm_amount_of_food").innerHTML += `<li>${casesAmount} cases</li>`;
+  }
+  if (checkbox_pounds.checked) {
+    let poundsAmount = document.getElementById("poundsAmount").value;
+    document.getElementById("confirm_amount_of_food").innerHTML += `<li>${poundsAmount} lbs</li>`;
+  }
+
+
+
+
+
+  var rejectionReason = document.querySelector('input[name=rejectionReason]:checked').value;
+
+  var rejectionReasonOther = "";
+  if(document.getElementById("reason_temp").checked){
+    document.getElementById("confirm_reason_for_rejection").innerHTML = document.querySelector('input[name=temperature_highlow]:checked').value;
+  }
+  else if(document.getElementById("reason_damage").checked){
+    document.getElementById("confirm_reason_for_rejection").innerHTML = document.querySelector('input[name=damage_select]:checked').value;
+  }
+  else if(document.getElementById("reason_mistake").checked){
+    document.getElementById("confirm_reason_for_rejection").innerHTML = document.querySelector('input[name=mistake_select]:checked').value;
+  }
+  else if(document.getElementById("reason_date").checked){
+    document.getElementById("confirm_reason_for_rejection").innerHTML = document.querySelector('input[name=mistake_date_select]:checked').value;
+  }
+  else if(document.getElementById("reason_other").checked){
+    document.getElementById("confirm_reason_for_rejection").innerHTML = document.getElementById("reason_other_text").value;
+  }else{
+    document.getElementById("confirm_reason_for_rejection").innerHTML = rejectionReason;
+  }
+
+
+}
+</script>
+
+
+<!-- Code for radio button appear -->
+<script>
+    const reason_mold = document.getElementById('reason_mold');
+    const reason_decay = document.getElementById('reason_decay');
+    const reason_temp = document.getElementById('reason_temp');
+    const reason_damage = document.getElementById('reason_damage');
+    const reason_mistake = document.getElementById('reason_mistake');
+    const reason_overage = document.getElementById('reason_overage');
+    const reason_shifted = document.getElementById('reason_shifted');
+    const reason_cosmetic = document.getElementById('reason_cosmetic');
+    const reason_mislabeled = document.getElementById('reason_mislabeled');
+    const reason_date = document.getElementById('reason_date');
+    const reason_lateearly = document.getElementById('reason_lateearly');
+    const reason_specifications = document.getElementById('reason_specifications');
+    const reason_other = document.getElementById('reason_other');
+
+    const secondOption_decay = document.getElementById('decay_div');
+    const secondOption_temp = document.getElementById('temperature_highlow_div');
+    const secondOption_damage = document.getElementById('damage_div');
+    const secondOption_mistake = document.getElementById('mistake_div');
+    const secondOption_mistake_date = document.getElementById('mistake_date_div');
+    const secondOption_other = document.getElementById('reason_other_div');
+
+
+
+    reason_mold.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_decay.addEventListener('change', () => {
+      secondOption_decay.classList.remove('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_temp.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.remove('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_damage.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.remove('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_mistake.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.remove('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_overage.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_shifted.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_cosmetic.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_mislabeled.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_date.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.remove('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_lateearly.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_specifications.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.add('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+    reason_other.addEventListener('change', () => {
+      secondOption_decay.classList.add('d-none');
+      secondOption_temp.classList.add('d-none');
+      secondOption_damage.classList.add('d-none');
+      secondOption_mistake.classList.add('d-none');
+      secondOption_mistake_date.classList.add('d-none');
+      secondOption_other.classList.remove('d-none');
+
+      let message = document.getElementById("rejectionReason_error_box");
+      message.innerHTML = "";
+      message = document.getElementById("secondReason_error_box");
+      message.innerHTML = "";
+    });
+
+  </script>
+
+  <script>
+          // define the callAPI function that takes a first name and last name as parameters
+           var callMatchingAPI = ()=>{
+              // instantiate a headers object
+              var myHeaders = new Headers();
+              // var latitude = ""
+              // var longitude = ""
+
+              // navigator.geolocation.getCurrentPosition(function (position) {
+              //     latitude = position.coords.latitude.toString()
+              //     longitude = position.coords.longitude.toString()
+
+
+              // add content type header to object
+              //myHeaders.append("Content-Type", "multipart/form-data");
+              //myHeaders.append("Access-Control-Allow-Headers", "*");
+              //myHeaders.append("Access-Control-Allow-Origin", "https://dev2342.d2dew9iasssorf.amplifyapp.com");
+
+              // using built in JSON utility package turn object to string and store in a variable
+
+
+              var rejectionReason = document.querySelector('input[name=rejectionReason]:checked').value;
+
+              var rejectionReasonOther = "";
+              if(document.getElementById("reason_temp").checked){
+                rejectionReasonOther = document.querySelector('input[name=temperature_highlow]:checked').value;
+              }
+              else if(document.getElementById("reason_damage").checked){
+                rejectionReasonOther = document.querySelector('input[name=damage_select]:checked').value;
+              }
+              else if(document.getElementById("reason_mistake").checked){
+                rejectionReasonOther = document.querySelector('input[name=mistake_select]:checked').value;
+              }
+              else if(document.getElementById("reason_date").checked){
+                rejectionReasonOther = document.querySelector('input[name=mistake_date_select]:checked').value;
+              }
+              else if(document.getElementById("reason_other").checked){
+                rejectionReasonOther = document.getElementById("reason_other_text").value;
+              }
+
+              var name = document.getElementById("name").value;
+              var currentCity = document.getElementById("currentCity").value;
+              var destinationCity =  document.getElementById("destinationCity").value;
+
+              if (destinationCity.length === 0){
+                destinationCity = currentCity
+              }
+              var departureTime = document.getElementById("departureTime").value;
+              var phoneNumber = document.getElementById("phoneNumber").value;
+              var driverOrDispatcher = document.querySelector('input[name=phone-option]:checked').value;
+              var companyName = document.getElementById("companyName").value;
+              var foodType = document.getElementById("foodType").value;
+              var foodAmountPallets = document.getElementById("palletsAmount").value;
+              var foodAmountCases = document.getElementById("casesAmount").value;
+              var foodAmountPounds = document.getElementById("poundsAmount").value;
+              var bulkOrPackaged = document.querySelector('input[name=bulkorpackaged]:checked').value;
+              var RefrigFrozenStable = document.querySelector('input[name=fridgeorshelf]:checked').value;
+              var AdditionalInfo = document.getElementById("otherInformation_package").value;
+              var willingToWait = "False";
+              if(document.getElementById("leave_next_day").checked){
+                var willingToWait = "True";
+              }
+              var nextBusinessDay = document.getElementById("confirm_next_bus_day").innerHTML;
+              
+
+
+              if(document.getElementById("imageInput")['files'].length === 0){
+
+                var raw = JSON.stringify({
+                    "name": name,
+                    "currentCity": currentCity,
+                    "destinationCity": destinationCity,
+                    "departureTime": departureTime,
+                    "willingToWait": willingToWait,
+                    "phoneNumber": phoneNumber,
+                    "driverOrDispatcher": driverOrDispatcher,
+                    "companyName": companyName,
+                    "foodType": foodType,
+                    "foodAmountPallets": foodAmountPallets,
+                    "foodAmountCases": foodAmountCases,
+                    "foodAmountPounds": foodAmountPounds,
+                    "rejectionReason": rejectionReason,
+                    "rejectionReasonOther": rejectionReasonOther,
+                    "bulkOrPackaged": bulkOrPackaged,
+                    "RefrigFrozenStable": RefrigFrozenStable,
+                    "AdditionalInfo": AdditionalInfo,
+                    "nextBusinessDay": nextBusinessDay,
+                    "Image": "-"}
+                );
+
+                // create a JSON object with parameters for API call and store in a variable
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                };
+                // make API call with parameters and use promises to get response
+                fetch("https://tcdnyooi04.execute-api.us-east-2.amazonaws.com/default/MatchingInitiator", requestOptions)
+                .then(response => response.text())
+                .then(
+                    function(result) {
+                        console.log(JSON.parse(result).body)
+                        // alert(firstName+" "+lastName+"\nYour GeoCoordinates are: "+longitude+", "+latitude)
+                    })
+                .catch(error => console.log('error', error));
+              }
+              else{
+
+
+                  let image = document.getElementById("imageInput")['files'][0];
+
+
+                  var blobURL = window.URL.createObjectURL(image);
+
+                  var img = new Image();
+
+                  img.src = blobURL;
+                  img.onload = function(){
+
+                    var canvas = document.createElement('canvas');
+
+                    var width = img.width;
+                    var height = img.height;
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    var ctx = canvas.getContext("2d");
+
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    var resized = canvas.toDataURL("image/jpeg",0.0001);
+
+                    let base64String = resized.replace("data:", "").replace(/^.+,/, "");
+
+                    var raw = JSON.stringify({
+                        "name": name,
+                        "currentCity": currentCity,
+                        "destinationCity": destinationCity,
+                        "departureTime": departureTime,
+                        "willingToWait": willingToWait,
+                        "phoneNumber": phoneNumber,
+                        "driverOrDispatcher": driverOrDispatcher,
+                        "companyName": companyName,
+                        "foodType": foodType,
+                        "foodAmountPallets": foodAmountPallets,
+                        "foodAmountCases": foodAmountCases,
+                        "foodAmountPounds": foodAmountPounds,
+                        "rejectionReason": rejectionReason,
+                        "rejectionReasonOther": rejectionReasonOther,
+                        "bulkOrPackaged": bulkOrPackaged,
+                        "RefrigFrozenStable": RefrigFrozenStable,
+                        "AdditionalInfo": AdditionalInfo,
+                        "nextBusinessDay": nextBusinessDay,
+                        "Image": base64String}
+                    );
+
+                    // create a JSON object with parameters for API call and store in a variable
+                    var requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: raw,
+                        redirect: 'follow'
+                    };
+                    // make API call with parameters and use promises to get response
+
+                    fetch("https://tcdnyooi04.execute-api.us-east-2.amazonaws.com/default/MatchingInitiator", requestOptions)
+                    .then(response => response.text())
+                    .then(
+                        function(result) {
+                            console.log(JSON.parse(result).body)
+                            // alert(firstName+" "+lastName+"\nYour GeoCoordinates are: "+longitude+", "+latitude)
+                        })
+                    .catch(error => console.log('error', error));
+
+                  }
+
+              }
+
+          }
+      </script>
+
+      <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1GtH_Si1ytf4xUiRZ0OaHjeJ8W3C4uhA&callback=initAutocomplete&libraries=places&v=weekly&sensor=false&language=en"
+      defer
+    ></script>
+
+    <script>
+    let autocompleteOrigin;
+    let autocompleteDestination;
+    let originAddress;
+    let destinationAddress;
+
+    function initAutocomplete(){
+      originAddress = document.getElementById("currentCity");
+      destinationAddress = document.getElementById("destinationCity");
+
+      autocompleteOrigin = new google.maps.places.Autocomplete(originAddress, {componentRestrictions: { country:["us","ca"]}, types: ["geocode"]});
+      autocompleteDestination = new google.maps.places.Autocomplete(destinationAddress, {componentRestrictions: { country:["us","ca"]}, types: ["geocode"]});
+
+      originAddress.focus();
+      destinationAddress.focus();
+
+      autocompleteOrigin.addListener("place_change", fillInOrigin);
+      autocompleteDestination.addListener("place_change", fillInDestination);
+    }
+
+    function fillInOrigin(){
+
+      const place1 = autocompleteOrigin.getPlace();
+      var address1 = "";
+      for (const component of place1.address_components) {
+        const componentType = component.types[0];
+
+        switch (componentType) {
+          case "street_number": {
+            let street_number = component.long_name;
+            break;
+          }
+
+          case "route": {
+            let route = component.short_name;
+            break;
+          }
+
+          case "postal_code": {
+            let postcode = component.long_name;
+            break;
+          }
+
+          case "postal_code_suffix": {
+            let postcode_suffix = component.long_name;
+            break;
+          }
+          case "locality":{
+            let locality = component.long_name;
+            break;
+          }
+
+          case "administrative_area_level_1": {
+            let state = component.short_name;
+            break;
+          }
+
+          case "country":{
+          let country = component.long_name;
+          break;
+          }
+        }
+      }
+
+      address1 = `${street_number} ${route} ${postal_code}-${postcode_suffix} ${locality} ${state} ${country}`;
+
+      originAddress.value = address1;
+    }
+
+    function fillInDestination(){
+
+      const place2 = autocompleteDestination.getPlace();
+      var address2 = "";
+      for (const component of place2.address_components) {
+        const componentType = component.types[0];
+
+        switch (componentType) {
+          case "street_number": {
+            let street_number = component.long_name;
+            break;
+          }
+
+          case "route": {
+            let route = component.short_name;
+            break;
+          }
+
+          case "postal_code": {
+            let postcode = component.long_name;
+            break;
+          }
+
+          case "postal_code_suffix": {
+            let postcode_suffix = component.long_name;
+            break;
+          }
+          case "locality":{
+            let locality = component.long_name;
+            break;
+          }
+
+          case "administrative_area_level_1": {
+            let state = component.short_name;
+            break;
+          }
+
+          case "country":{
+          let country = component.long_name;
+          break;
+          }
+        }
+      }
+
+      address2 = `${street_number} ${route} ${postal_code}-${postcode_suffix} ${locality} ${state} ${country}`;
+
+      destinationAddress.value = address2;
+    }
+
+    window.initAutocomplete = initAutocomplete;
+
+    </script>
+
+
+</body>
+</html>

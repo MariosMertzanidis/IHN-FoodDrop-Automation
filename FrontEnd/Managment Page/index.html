@@ -1,0 +1,1690 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>IHN Dashboard</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/cd953b84bb.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <style>
+
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+  </head>
+  <body>
+
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">The Indy Hunger Network</a>
+  </header>
+
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Donations</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="current-matchings-tab" data-bs-toggle="tab" data-bs-target="#current-matchings-tab-pane" type="button" role="tab" aria-controls="current-matchings-tab-pane" aria-selected="false">Active Matchings</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="recipients-tab" data-bs-toggle="tab" data-bs-target="#recipients-tab-pane" type="button" role="tab" aria-controls="recipients-tab-pane" aria-selected="false">Recipients</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Data Summary</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+
+
+  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+      <div class="pricing-header p-3 pb-md-4 mx-auto text-center border-bottom">
+        <h1 class="display-4 fw-light">Donations</h1>
+      </div>
+
+      <p>
+      <div class="text-center">
+        <table style = "margin-left:25%;margin-right:auto;">
+        <tr>
+          <td><div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span id="dateRangeSelector"></span> <i class="fa fa-caret-down"></i>
+        </div></td>
+        <td><button class="btn btn-primary" type="button" id="refreshDonsButton" onclick="GetPastMatchingsAPI()"> <i class="fa-solid fa-arrows-rotate" id="updateInner"></i> Update Donations</button></td>
+        <td><button class="btn btn-primary" type="button" id="DownloadDonsButton" onclick="exportTableToCSV('data.txt')"> <i class="fa-solid fa-download" id="downliadInner"></i> Download Donations</button></td>
+        <td><button type="button" class="btn btn-primary" onclick="addDonation()"><i class="fa-solid fa-plus"></i> Add New Donation </button></td>
+      </tr>
+      </table>
+      </div>
+      <p>
+
+        <div class="modal fade" id="addDonationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addDonationModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addDonationModalLabel">Add Donation</h5>
+                <button id="donation-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                      <label for="add-drivers-name" class="col-form-label">Driver's name:</label>
+                      <input type="text" class="form-control" id="add-drivers-name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-drivers-number" class="col-form-label">Drivers' Phone:</label>
+                      <input type="text" class="form-control" id="add-drivers-number">
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-food-item" class="col-form-label">Food Item:</label>
+                      <input type="text" class="form-control" id="add-food-item" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-food-amount" class="col-form-label">Food Amount:</label>
+                      <input type="text" class="form-control" id="add-food-amount" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-food-package" class="col-form-label">Food Packaging:</label>
+                      <select id="add-food-package" class="form-control" name="add-food-package">
+                        <option id = "option-packaged">Packaged for retail</option>
+                        <option id = "option-bulk">In bulk</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-food-refrig" class="col-form-label">Food Status:</label>
+                      <select id="add-food-refrig" class="form-control" name="add-food-refrig">
+                        <option id = "option-refrigerated">Refrigerated</option>
+                        <option id = "option-frozen">Frozen</option>
+                        <option id = "option-stable">Shelf stable</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-rejection-reason" class="col-form-label">Rejection Reason:</label>
+                      <input type="text" class="form-control" id="add-rejection-reason" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-initial-location" class="col-form-label">Initial Location:</label>
+                      <input type="text" class="form-control" id="add-initial-location" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-destination" class="col-form-label">Destination:</label>
+                      <input type="text" class="form-control" id="add-destination" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-final-recipient" class="col-form-label">Final Recipient:</label>
+                      <select id="add-final-recipient" class="form-control" name="add-final-recipient">
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="add-other-info" class="col-form-label">Other Info:</label>
+                      <input type="text" class="form-control" id="add-other-info" >
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="AddDonationAPI()" id="addDonationButton"> Add Donation </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+      <div class="container-fluid shadow min-vh-100 py-2">
+
+
+                  <table class="table accordion table-bordered" id="pastDon">
+                      <thead>
+                          <tr>
+                              <th scope="col" class="text-nowrap">#</th>
+                              <th scope="col">Contact Date & Time</th>
+                              <th scope="col">Driver's Name</th>
+                              <th scope="col">Driver's Phone</th>
+                              <th scope="col">Food Item & Amount</th>
+                              <th scope="col">Food Status</th>
+                              <th scope="col">Reason for Rejection</th>
+                              <th scope="col">Initial Location</th>
+                              <th scope="col">Destination</th>
+                              <th scope="col">Final Recipient</th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                          </tr>
+                      </thead>
+                      <tbody class="table-group-divider">
+                          <tr>
+                              <td scope="row"> <button class="btn btn-primary btn-sml" type="button" data-bs-toggle="collapse" data-bs-target="#r1"> 1 <i class="fa-solid fa-caret-down"></i> </button> </td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                              <td>Cell</td>
+                          </tr>
+                          <tr class="collapse accordion-collapse" id="r1" data-bs-parent="pastDon">
+                             <td colspan="10">
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Organization Name</th>
+                                      <th>Location</th>
+                                      <!--th>Location City</th-->
+                                      <th>Contact Number</th>
+                                      <th>Hours</th>
+                                      <th>Last Donation</th>
+                                      <th> </th>
+                                      <th> </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="recBody" class="table-group-divider">
+                                    <tr>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td>Temp</td>
+                                      <td><button type="button" class="btn btn-sm btn-outline-primary">Edit</button></td>
+                                      <td><button type="button" class="btn btn-sm btn-outline-danger">Delete</button></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+      </div>
+
+  </div>
+
+  <div class="tab-pane fade show" id="current-matchings-tab-pane" role="tabpanel" aria-labelledby="current-matchings-tab" tabindex="0">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center border-bottom">
+    <h1 class="display-4 fw-light">Active Matchings</h1>
+    </div>
+
+    <p>
+      <div class="text-center">
+        <td><button class="btn btn-primary" type="button" id="refreshPastMatchingsButton" onclick="GetActiveMatchingsAPI()"> <i class="fa-solid fa-arrows-rotate" id="updateInnerMatchings"></i> Update Active Matchings</button></td>
+      </tr>
+      </table>
+      </div>
+      <p>
+
+    <div class="container-fluid shadow min-vh-100 py-2">
+
+
+      <table class="table accordion table-bordered" id="activeMatchingsTable">
+          <thead>
+              <tr>
+                  <th scope="col" class="text-nowrap">#</th>
+                  <th scope="col">Contact Date & Time</th>
+                  <th scope="col">Driver's Name</th>
+                  <th scope="col">Driver's Phone</th>
+                  <th scope="col">Food Item & Amount</th>
+                  <th scope="col">Food Status</th>
+                  <th scope="col">Reason for Rejection</th>
+                  <th scope="col">Initial Location</th>
+                  <th scope="col">Destination</th>
+              </tr>
+          </thead>
+          <tbody class="table-group-divider">
+              <tr>
+                  <td scope="row"> <button class="btn btn-primary btn-sml" type="button" data-bs-toggle="collapse" data-bs-target="#r1"> 1 <i class="fa-solid fa-caret-down"></i> </button> </td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+              </tr>
+              <tr class="collapse accordion-collapse" id="r1" data-bs-parent="pastDon">
+                 <td colspan="10">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Organization Name</th>
+                          <th>Contact Number</th>
+                          <th>Response Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="recBody" class="table-group-divider">
+                        <tr>
+                          <td>Temp</td>
+                          <td>Temp</td>
+                          <td>Temp</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-pane fade show" id="recipients-tab-pane" role="tabpanel" aria-labelledby="recipients-tab" tabindex="0">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center border-bottom">
+      <h1 class="display-4 fw-light">Recipients</h1>
+    </div>
+
+    <p>
+    <div class="text-center">
+      <button class="btn btn-primary" type="button" id="refreshRecsButton" onclick="GetRecipientsAPI('True')"> <i class="fa-solid fa-arrows-rotate" id="updateRecipient"></i> Update List</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipientModal"><i class="fa-solid fa-user-plus"></i> Add Recipient </button>
+    </div>
+    <p>
+
+    <!-- Button trigger modal -->
+
+      <!-- Add Recipient Modal -->
+      <div class="modal fade" id="addRecipientModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addRecipientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addRecipientModalLabel">Add Recipient</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                  <div class="mb-3">
+                    <label for="add-recipient-name" class="col-form-label">Recipient name:</label>
+                    <input type="text" class="form-control" id="add-recipient-name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="add-contact-number" class="col-form-label">Contact number:</label>
+                    <input type="text" class="form-control" id="add-contact-number">
+                  </div>
+                  <div class="mb-3">
+                    <label for="add-location" class="col-form-label">Location:</label>
+                    <input type="text" class="form-control" id="add-location" placeholder="Enter recipeints location" required autocomplete="off">
+                    <p id="location_error_box" role="alert" style="color:red;"></p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="col-form-label">Availability:</label>
+                  </div>
+                  <table class="table table-borderless">
+                          <thead>
+                            <tr>
+                              <th scope="col">Day</th>
+                              <th scope="col">Opening Time</th>
+                              <th scope="col">Closing Time</th>
+                              <th scope="col">Open?</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Monday</td>
+                              <td><input type="time" class="form-control" id="add-time-open-monday" /></td>
+                              <td><input type="time" class="form-control" id="add-time-close-monday" /></td>
+                              <td><input class="form-check-input" type="checkbox" value="" id="open-monday-checkbox">
+                                  <label class="form-check-label" for="open-monday-checkbox">
+                                      Yes
+                                  </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Tuesday</td>
+                              <td><input type="time" class="form-control" id="add-time-open-tuesday" /></td>
+                              <td><input type="time" class="form-control" id="add-time-close-tuesday" /></td>
+                              <td><input class="form-check-input" type="checkbox" value="" id="open-tuesday-checkbox">
+                                  <label class="form-check-label" for="open-tuesday-checkbox">
+                                      Yes
+                                  </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Wednesday</td>
+                              <td><input type="time" class="form-control" id="add-time-open-wednesday" /></td>
+                              <td><input type="time" class="form-control" id="add-time-close-wednesday" /></td>
+                              <td><input class="form-check-input" type="checkbox" value="" id="open-wednesday-checkbox">
+                                  <label class="form-check-label" for="open-wednesday-checkbox">
+                                      Yes
+                                  </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Thursday</td>
+                              <td><input type="time" class="form-control" id="add-time-open-thursday" /></td>
+                              <td><input type="time" class="form-control" id="add-time-close-thursday" /></td>
+                              <td><input class="form-check-input" type="checkbox" value="" id="open-thursday-checkbox">
+                                  <label class="form-check-label" for="open-thursday-checkbox">
+                                      Yes
+                                  </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Friday</td>
+                              <td><input type="time" class="form-control" id="add-time-open-friday" /></td>
+                              <td><input type="time" class="form-control" id="add-time-close-friday" /></td>
+                              <td><input class="form-check-input" type="checkbox" value="" id="open-friday-checkbox">
+                                  <label class="form-check-label" for="open-friday-checkbox">
+                                      Yes
+                                  </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Saturday</td>
+                              <td><input type="time" class="form-control" id="add-time-open-saturday" /></td>
+                              <td><input type="time" class="form-control" id="add-time-close-saturday" /></td>
+                              <td><input class="form-check-input" type="checkbox" value="" id="open-saturday-checkbox">
+                                  <label class="form-check-label" for="open-saturday-checkbox">
+                                      Yes
+                                  </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Sunday</td>
+                              <td><input type="time" class="form-control" id="add-time-open-sunday" /></td>
+                              <td><input type="time" class="form-control" id="add-time-close-sunday" /></td>
+                              <td><input class="form-check-input" type="checkbox" value="" id="open-sunday-checkbox">
+                                  <label class="form-check-label" for="open-sunday-checkbox">
+                                      Yes
+                                  </label>
+                              </td>
+                            </tr>
+                          </tbody>
+                  </table>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="AddRecipientAPI()" id="addRecipientButton"> Add Recipient </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid shadow py-2">
+        <table class="table table-bordered table-hover" id="recList">
+          <thead class="thead-light">
+            <tr>
+              <th>Organization Name</th>
+              <th>Location</th>
+              <th>Contact Number</th>
+              <th class="text-center" style="width: 12rem;">Hours</th>
+              <th>Last Donation</th>
+              <th> </th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody id="recBody">
+            <tr>
+              <td>Temp</td>
+              <td>Temp</td>
+              <td>Temp</td>
+              <td>
+                <table class="table table-borderless mb-0">
+                  <tbody>
+                    <tr>
+                      <td>Monday</td>
+                      <td>9:00 AM - 5:00 PM</td>
+                    </tr>
+                    <tr>
+                      <td>Tuesday</td>
+                      <td>9:00 AM - 5:00 PM</td>
+                    </tr>
+                    <tr>
+                      <td>Wednesday</td>
+                      <td>9:00 AM - 5:00 PM</td>
+                    </tr>
+                    <tr>
+                      <td>Thursday</td>
+                      <td>9:00 AM - 5:00 PM</td>
+                    </tr>
+                    <tr>
+                      <td>Friday</td>
+                      <td>9:00 AM - 5:00 PM</td>
+                    </tr>
+                    <tr>
+                      <td>Saturday</td>
+                      <td>Closed</td>
+                    </tr>
+                    <tr>
+                      <td>Sunday</td>
+                      <td>Closed</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td>Temp</td>
+              <td>Temp</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-outline-primary">Edit</button>
+                <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+  </div>
+  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center border-bottom">
+      <h1 class="display-4 fw-light">Data Summary</h1>
+    </div>
+    <p> Under construction.
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+<script>
+    var temp_name = ".";
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+
+<script>
+window.onload=function(){
+   document.getElementById("refreshRecsButton").click();
+   document.getElementById("refreshDonsButton").click();
+   document.getElementById("refreshPastMatchingsButton").click();
+ }
+</script>
+
+<script>
+
+var myModal = document.getElementById('addRecipientModal');
+
+myModal.addEventListener('hidden.bs.modal', function (event) {
+    document.getElementById("add-recipient-name").value = "";
+    document.getElementById("add-contact-number").value = "";
+    document.getElementById("add-location").value = "";
+
+    document.getElementById("add-time-open-monday").value="";
+    document.getElementById("add-time-open-tuesday").value="";
+    document.getElementById("add-time-open-wednesday").value="";
+    document.getElementById("add-time-open-thursday").value="";
+    document.getElementById("add-time-open-friday").value="";
+    document.getElementById("add-time-open-saturday").value="";
+    document.getElementById("add-time-open-sunday").value="";
+
+    document.getElementById("add-time-close-monday").value="";
+    document.getElementById("add-time-close-tuesday").value="";
+    document.getElementById("add-time-close-wednesday").value="";
+    document.getElementById("add-time-close-thursday").value="";
+    document.getElementById("add-time-close-friday").value="";
+    document.getElementById("add-time-close-saturday").value="";
+    document.getElementById("add-time-close-sunday").value="";
+
+    document.getElementById("open-monday-checkbox").checked=false;
+    document.getElementById("open-tuesday-checkbox").checked=false;
+    document.getElementById("open-wednesday-checkbox").checked=false;
+    document.getElementById("open-thursday-checkbox").checked=false;
+    document.getElementById("open-friday-checkbox").checked=false;
+    document.getElementById("open-saturday-checkbox").checked=false;
+    document.getElementById("open-sunday-checkbox").checked=false;
+
+    
+    document.getElementById("addRecipientButton").innerText = "Add Recipient";
+
+});
+</script>
+
+<script>
+
+function removeElement(elementID){
+  console.log("Removing Element ID ", elementID);
+  var element = document.getElementById(elementID);
+  console.log("Removing Actual Element", element);
+  if(element){
+    element.remove();
+  }
+}
+
+function editRecipientApi(oldName){
+  document.getElementById("addRecipientButton").innerText = "Add Recipient";
+
+  document.getElementById("addRecipientButton").onclick = AddRecipientAPI;
+
+  var recipientName = document.getElementById('add-recipient-name').value
+           var contactNumber = document.getElementById('add-contact-number').value
+           var recipientLocation = document.getElementById('add-location').value
+
+           var opentime_monday = document.getElementById('add-time-open-monday').value
+           var opentime_tuesday = document.getElementById('add-time-open-tuesday').value
+           var opentime_wednesday = document.getElementById('add-time-open-wednesday').value
+           var opentime_thursday = document.getElementById('add-time-open-thursday').value
+           var opentime_friday = document.getElementById('add-time-open-friday').value
+           var opentime_saturday = document.getElementById('add-time-open-saturday').value
+           var opentime_sunday = document.getElementById('add-time-open-sunday').value
+
+           var closetime_monday = document.getElementById('add-time-close-monday').value
+           var closetime_tuesday = document.getElementById('add-time-close-tuesday').value
+           var closetime_wednesday = document.getElementById('add-time-close-wednesday').value
+           var closetime_thursday = document.getElementById('add-time-close-thursday').value
+           var closetime_friday = document.getElementById('add-time-close-friday').value
+           var closetime_saturday = document.getElementById('add-time-close-saturday').value
+           var closetime_sunday = document.getElementById('add-time-close-sunday').value
+
+           var open_monday = document.getElementById('open-monday-checkbox').checked
+           var open_tuesday = document.getElementById('open-tuesday-checkbox').checked
+           var open_wednesday = document.getElementById('open-wednesday-checkbox').checked
+           var open_thursday = document.getElementById('open-thursday-checkbox').checked
+           var open_friday = document.getElementById('open-friday-checkbox').checked
+           var open_saturday = document.getElementById('open-saturday-checkbox').checked
+           var open_sunday = document.getElementById('open-sunday-checkbox').checked
+
+
+
+           // instantiate a headers object
+           var myHeaders = new Headers();
+           // add content type header to object
+           myHeaders.append("Content-Type", "text/plain");
+           // using built in JSON utility package turn object to string and store in a variable
+           var raw = JSON.stringify({"type": "Edit",
+                                    "oldName": oldName,
+                                    "recipientName":recipientName,
+                                     "contactNumber": contactNumber,
+                                     "recipientLocation":recipientLocation,
+                                     "opentimeMonday":opentime_monday,
+                                     "opentimeTuesday":opentime_tuesday,
+                                     "opentimeWednesday":opentime_wednesday,
+                                     "opentimeThursday":opentime_thursday,
+                                     "opentimeFriday":opentime_friday,
+                                     "opentimeSaturday":opentime_saturday,
+                                     "opentimeSunday":opentime_sunday,
+                                     "closetimeMonday":closetime_monday,
+                                     "closetimeTuesday":closetime_tuesday,
+                                     "closetimeWednesday":closetime_wednesday,
+                                     "closetimeThursday":closetime_thursday,
+                                     "closetimeFriday":closetime_friday,
+                                     "closetimeSaturday":closetime_saturday,
+                                     "closetimeSunday":closetime_sunday,
+                                     "openMonday":open_monday,
+                                     "openTuesday":open_tuesday,
+                                     "openWednesday":open_wednesday,
+                                     "openThursday":open_thursday,
+                                     "openFriday":open_friday,
+                                     "openSaturday":open_saturday,
+                                     "openSunday":open_sunday});
+
+
+
+          // create a JSON object with parameters for API call and store in a variable
+          var requestOptions = {
+                                        method: 'PUT',
+                                        headers: myHeaders,
+                                        body: raw,
+                                        redirect: 'follow'
+          };
+          // make API call with parameters and use promises to get response
+          fetch("https://od2zy7djnl.execute-api.us-east-2.amazonaws.com/default/AddRecipientAPI", requestOptions)
+                                    .then(response => response.text())
+                                    .then(
+                                        function(result) {
+                                            console.log(JSON.parse(result).body);
+                                            GetRecipientsAPI("False");
+                                        })
+                                    .catch(error => console.log('error', error));
+
+}
+
+function editOnClick(o){
+  
+  var p=o.parentNode.parentNode;
+
+  document.getElementById("addRecipientButton").innerText = "Edit Recipient";
+
+  document.getElementById("addRecipientButton").onclick = function(){editRecipientApi(`${p.cells[0].innerHTML}`)};
+
+  
+  var myModal = new bootstrap.Modal(document.getElementById('addRecipientModal'));
+  myModal.toggle();
+  document.getElementById("add-recipient-name").value = p.cells[0].innerHTML;
+  document.getElementById("add-contact-number").value = p.cells[2].innerHTML;
+
+  temp_name = document.getElementById("add-recipient-name").value;
+
+  var myHeaders = new Headers();
+  var requestOptions = {
+             method: 'GET',
+             headers: myHeaders,
+             redirect: 'follow'
+ };
+ // make the API call with parameters and use promises to get response
+ fetch("https://6ktmxhvh0m.execute-api.us-east-2.amazonaws.com/default/GetRecipientByName?nameString="+p.cells[0].innerHTML, requestOptions).then(
+     response => response.text()).then(
+    function(result) {
+      console.log(result)
+       res = JSON.parse(result) 
+       console.log(res)
+       console.log(typeof res);
+       console.log(typeof res["Item"]["recipientLocation"]);
+
+
+       document.getElementById("add-location").value = res["Item"]["recipientLocation"];
+
+
+       if(res["Item"]["availability"][0]["is_open"]){
+            document.getElementById("open-sunday-checkbox").checked = res["Item"]["availability"][0]["is_open"];
+            document.getElementById("add-time-open-sunday").value = res["Item"]["availability"][0]["opening_time"];
+            document.getElementById("add-time-close-sunday").value= res["Item"]["availability"][0]["closing_time"];
+       }
+
+       if(res["Item"]["availability"][1]["is_open"]){
+            document.getElementById("open-monday-checkbox").checked = res["Item"]["availability"][1]["is_open"];
+            document.getElementById("add-time-open-monday").value = res["Item"]["availability"][1]["opening_time"];
+            document.getElementById("add-time-close-monday").value= res["Item"]["availability"][1]["closing_time"];
+       }
+
+       if(res["Item"]["availability"][2]["is_open"]){
+            document.getElementById("open-tuesday-checkbox").checked = res["Item"]["availability"][2]["is_open"];
+            document.getElementById("add-time-open-tuesday").value = res["Item"]["availability"][2]["opening_time"];
+            document.getElementById("add-time-close-tuesday").value= res["Item"]["availability"][2]["closing_time"];
+       }
+
+       if(res["Item"]["availability"][3]["is_open"]){
+            document.getElementById("open-wednesday-checkbox").checked = res["Item"]["availability"][3]["is_open"];
+            document.getElementById("add-time-open-wednesday").value = res["Item"]["availability"][3]["opening_time"];
+            document.getElementById("add-time-close-wednesday").value= res["Item"]["availability"][3]["closing_time"];
+       }
+
+       if(res["Item"]["availability"][4]["is_open"]){
+            document.getElementById("open-thursday-checkbox").checked = res["Item"]["availability"][4]["is_open"];
+            document.getElementById("add-time-open-thursday").value = res["Item"]["availability"][4]["opening_time"];
+            document.getElementById("add-time-close-thursday").value= res["Item"]["availability"][4]["closing_time"];
+       }
+
+       if(res["Item"]["availability"][5]["is_open"]){
+            document.getElementById("open-friday-checkbox").checked = res["Item"]["availability"][5]["is_open"];
+            document.getElementById("add-time-open-friday").value = res["Item"]["availability"][5]["opening_time"];
+            document.getElementById("add-time-close-friday").value= res["Item"]["availability"][5]["closing_time"];
+       }
+
+       if(res["Item"]["availability"][6]["is_open"]){
+            document.getElementById("open-saturday-checkbox").checked = res["Item"]["availability"][6]["is_open"];
+            document.getElementById("add-time-open-saturday").value = res["Item"]["availability"][6]["opening_time"];
+            document.getElementById("add-time-close-saturday").value= res["Item"]["availability"][6]["closing_time"];
+       }
+
+
+
+     });
+
+
+
+
+}
+
+
+var GetRecipientsAPI = (refreshBool)=>{
+          $("#updateRecipient").addClass("fa fa-refresh fa-spin");
+          var myHeaders = new Headers();
+          var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              redirect: 'follow',
+              
+          };
+
+          
+
+          // make API call with parameters and use promises to get response
+          fetch("https://yfg76zcysa.execute-api.us-east-2.amazonaws.com/default/GetRecipients?", requestOptions).then(response => response.text()).then(
+               function(result) {
+                 var table = document.getElementById("recList");
+                  var oldCount = table.rows.length;
+                   list_of_Recipients = JSON.parse(JSON.parse(result).body)
+                   $("#add-final-recipient").empty();
+                   $("#add-final-recipient").append(`<option value="Nobody Accepted" id="option: Nobody Accepted">Nobody Accepted</option>`);
+
+                   var newLength = list_of_Recipients.length
+
+                   for (var i=0; i < newLength; i++) {
+                        addRecipients(list_of_Recipients[i])
+                    }
+
+
+                   var rowCount = table.rows.length;
+
+
+                   for (var i = 0; i < oldCount-1; i++) {
+                      table.deleteRow(rowCount-oldCount+1);
+                    }
+
+                    }).catch(error => console.log('error', error)).finally(()=> $("#updateRecipient").removeClass("fa fa-refresh fa-spin"));;;
+
+}
+
+function addRecipients(data) {
+  var tableBody = document.getElementById("recList");
+  var newRow = tableBody.insertRow(1);
+
+  var NameCell = newRow.insertCell(0);
+  var AddressCell = newRow.insertCell(1);
+  var PhoneCell = newRow.insertCell(2);
+  var HoursCell = newRow.insertCell(3);
+  var LastDonCell = newRow.insertCell(4);
+  var buttonCell = newRow.insertCell(5);
+  var buttonCell2 = newRow.insertCell(6);
+
+  var NameText = document.createTextNode(data["recipientName"]);
+
+  $("#add-final-recipient").append(`<option value="${data["recipientName"]}" id="option: ${data["recipientName"]}">${data["recipientName"]}</option>`);
+
+  var AddressText = document.createTextNode(data["readableRecipientLocation"]);
+  var PhoneText = document.createTextNode(data["contactNumber"]);
+
+
+  var HoursText = document.createElement("table");
+
+  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  for (var i = 0; i < days.length; i++) {
+    var tr = document.createElement("tr");
+
+    var dayCell = document.createElement("td");
+    var dayText = document.createTextNode(days[i] + ":");
+    dayCell.appendChild(dayText);
+
+    var hourCell = document.createElement("td");
+    var hourText;
+    if (data["availability"][i]["is_open"]) {
+      hourText = document.createTextNode(
+        data["availability"][i]["opening_time"] +
+          " - " +
+          data["availability"][i]["closing_time"]
+      );
+    } else {
+      hourText = document.createTextNode("Closed");
+    }
+    hourCell.appendChild(hourText);
+
+    tr.appendChild(dayCell);
+    tr.appendChild(hourCell);
+
+    HoursText.appendChild(tr);
+  }
+
+  var LastDonText = document.createTextNode(data["lastDonationDate"]);
+
+  NameCell.appendChild(NameText);
+  AddressCell.appendChild(AddressText);
+  PhoneCell.appendChild(PhoneText);
+  HoursCell.appendChild(HoursText);
+  LastDonCell.appendChild(LastDonText);
+
+  var btn = document.createElement("BUTTON");
+  btn.className = "btn btn-primary";
+  btn.appendChild(document.createTextNode("Delete"));
+  btn.setAttribute("onclick", "deleteOnClick(this)");
+  buttonCell.appendChild(btn);
+
+  var btn = document.createElement("BUTTON");
+  btn.className = "btn btn-primary";
+  btn.appendChild(document.createTextNode("Edit"));
+  btn.setAttribute("onclick", "editOnClick(this)");
+  buttonCell2.appendChild(btn);
+}
+
+
+var GetActiveMatchingsAPI = ()=>{
+           // instantiate a headers object
+
+           $("#updateInnerMatchings").addClass("fa fa-refresh fa-spin");
+
+           var selectedDate = document.getElementById("dateRangeSelector").innerHTML;
+
+          var myHeaders = new Headers();
+          var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              redirect: 'follow'
+          };
+          // make API call with parameters and use promises to get response
+          fetch("https://wkv02e4yl2.execute-api.us-east-2.amazonaws.com/default/getActiveMatchings", requestOptions).then(response => response.text())
+           .then(
+               function(result) {
+                    console.log("GetActiveMatching() Result:",result);
+                   list_of_past_matchings = JSON.parse(result).body
+
+                   var table = document.getElementById("activeMatchingsTable");
+                   var oldCount = table.rows.length;
+                   var newLength = list_of_past_matchings.length;
+
+                   for (var i=0; i < newLength; i++) {
+            				     addRowActiveMatchings(list_of_past_matchings[i],i+1)
+            		   }
+
+                   var newCount = table.rows.length;
+
+                   for (var i = 0; i < oldCount-1; i++) {
+                        table.deleteRow(newCount-oldCount+1);
+                    }
+
+                  
+
+               }).catch(error => console.log('error', error)).finally(()=> $("#updateInnerMatchings").removeClass("fa fa-refresh fa-spin"));;
+}
+
+function addRowActiveMatchings(data,index)
+{
+  var tableBody = document.getElementById("activeMatchingsTable");
+  var newRow = tableBody.insertRow(1);
+
+  var buttonCell = newRow.insertCell(0);
+  var ContactDTCell = newRow.insertCell(1);
+  var DrNameCell = newRow.insertCell(2);
+  var DrPhoneCell = newRow.insertCell(3);
+  var FItemCell = newRow.insertCell(4);
+  var FStatusCell = newRow.insertCell(5);
+  var RRejectionCell = newRow.insertCell(6);
+  var ILocationCell = newRow.insertCell(7);
+  var DestinationCell = newRow.insertCell(8);
+
+  temp_driverDetails = data["driverDetails"];
+  temp_foodDetails = data["foodDetails"];
+
+  var rejectionReason_text = temp_foodDetails["rejectionReason"];
+
+  var FStatusText = document.createTextNode(temp_foodDetails["bulkOrPackaged"]+" / "+temp_foodDetails["refigeratedFrozenStable"])
+  var ContactDTText = document.createTextNode(data["requestStartTime"]);
+  var DrNameText = document.createTextNode(temp_driverDetails["name"]);
+  var DrPhoneText = document.createTextNode(temp_driverDetails["phoneNumber"]);
+  var FItemText = document.createTextNode(temp_foodDetails["foodType"] + " : " + temp_foodDetails["foodAmount"]);
+  var RRejectionText = document.createTextNode(rejectionReason_text);
+  var ILocationText = document.createTextNode(temp_driverDetails["currentCity"]);
+  var DestinationText = document.createTextNode(temp_driverDetails["destinationCity"]);
+
+
+  ContactDTCell.appendChild(ContactDTText);
+  DrNameCell.appendChild(DrNameText);
+  DrPhoneCell.appendChild(DrPhoneText);
+  FItemCell.appendChild(FItemText);
+  FStatusCell.appendChild(FStatusText);
+  RRejectionCell.appendChild(RRejectionText);
+  ILocationCell.appendChild(ILocationText);
+  DestinationCell.appendChild(DestinationText);
+
+  var btn = document.createElement("BUTTON");
+  btn.className="btn btn-primary btn-sml text-nowrap";
+  btn.innerHTML = index + '<i class="fa-solid fa-caret-down"></i>';
+  btn.setAttribute("type","button");
+  btn.setAttribute("data-bs-toggle","collapse");
+  btn.setAttribute("data-bs-target","#r"+index);
+  buttonCell.appendChild(btn);
+
+
+
+  temp_recipientDetails = data["recipientsOrder"];
+
+  var hiddenTable = document.createElement("TABLE");
+  hiddenTable.className="table table-striped";
+
+  var tblHead = document.createElement("thead");
+  hiddenTable.appendChild(tblHead);
+
+  var row = document.createElement("tr");
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Recipient Name");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Contact Number");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Response Status");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+  tblHead.appendChild(row);
+
+  var tblBody = document.createElement("tbody");
+  tblBody.setAttribute("class","table-group-divider");
+
+
+
+  for (var i=0; i < temp_recipientDetails.length; i++) {
+      var hiddenRow = document.createElement("tr");
+      temp = temp_recipientDetails[i];
+
+      re_added_string="";
+      if("reAddBool" in temp){
+        re_added_string = " (re-added to queue)";
+      }
+      console.log("Re add String", re_added_string)
+
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(temp["recipientName"]+re_added_string);
+      cell.appendChild(cellText);
+      hiddenRow.appendChild(cell);
+
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(temp["contactNumber"]);
+      cell.appendChild(cellText);
+      hiddenRow.appendChild(cell);
+
+      temp = data["responseStatus"];
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(temp[i]);
+      cell.appendChild(cellText);
+      hiddenRow.appendChild(cell);
+
+      tblBody.appendChild(hiddenRow);
+  }
+
+  
+  hiddenTable.appendChild(tblBody);
+
+  row1 = tableBody.insertRow(2);
+  row1.setAttribute("class","collapse accordion-collapse accordion-flush");
+  row1.setAttribute("id","r"+index);
+  row1.setAttribute("data-bs-parent","pastDon");
+  cell1 = row1.insertCell(0);
+  cell1.colSpan = "9";
+  cell1.appendChild(hiddenTable);
+
+
+}
+
+
+// define the callAPI function that takes a first name and last name as parameters
+var GetPastMatchingsAPI = ()=>{
+           // instantiate a headers object
+
+           $("#updateInner").addClass("fa fa-refresh fa-spin");
+
+           var selectedDate = document.getElementById("dateRangeSelector").innerHTML;
+           console.log(selectedDate)
+           console.log("https://qzn8k6ph4d.execute-api.us-east-2.amazonaws.com/default/getPastMathchingsAPI?" + new URLSearchParams({dateRange: selectedDate}))
+
+          var myHeaders = new Headers();
+          var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              redirect: 'follow'
+          };
+          // make API call with parameters and use promises to get response
+          fetch("https://qzn8k6ph4d.execute-api.us-east-2.amazonaws.com/default/getPastMathchingsAPI?" + new URLSearchParams({dateRange: selectedDate}), requestOptions).then(response => response.text())
+           .then(
+               function(result) {
+                    console.log("GetPastMatching() Result:",result);
+                   list_of_past_matchings = JSON.parse(result)
+
+                   var table = document.getElementById("pastDon");
+                   var oldCount = table.rows.length;
+                   var newLength = list_of_past_matchings.length;
+
+                   for (var i=0; i < newLength; i++) {
+            				     addRowDonations(list_of_past_matchings[i],i+1)
+            		   }
+
+                   var newCount = table.rows.length;
+
+                   for (var i = 0; i < oldCount-1; i++) {
+                        table.deleteRow(newCount-oldCount+1);
+                    }
+
+                  
+
+               }).catch(error => console.log('error', error)).finally(()=> $("#updateInner").removeClass("fa fa-refresh fa-spin"));
+
+               
+}
+
+function addRowDonations(data,index)
+{
+  var tableBody = document.getElementById("pastDon");
+  var newRow = tableBody.insertRow(1);
+
+  var buttonCell = newRow.insertCell(0);
+  var ContactDTCell = newRow.insertCell(1);
+  var DrNameCell = newRow.insertCell(2);
+  var DrPhoneCell = newRow.insertCell(3);
+  var FItemCell = newRow.insertCell(4);
+  var FStatusCell = newRow.insertCell(5);
+  var RRejectionCell = newRow.insertCell(6);
+  var ILocationCell = newRow.insertCell(7);
+  var DestinationCell = newRow.insertCell(8);
+  var FinalRecipientCell = newRow.insertCell(9);
+  var deleteButton = newRow.insertCell(10);
+  var editButton = newRow.insertCell(11);
+
+  temp_driverDetails = data["driverDetails"];
+  temp_foodDetails = data["foodDetails"];
+
+  var feedback_food_bank = data["feedback_from_final_recipient"]
+  if (!feedback_food_bank){
+    feedback_food_bank = "Not Submitted"
+  }
+  var feedback_driver = data["feedback_from_driver"]
+  if (!feedback_driver){
+    feedback_driver = "Not Submitted"
+  }
+  //console.log(feedback_food_bank, feedback_food_bank)
+
+  var rejectionReason_text = temp_foodDetails["rejectionReason"];
+
+  var FStatusText = document.createTextNode(temp_foodDetails["bulkOrPackaged"]+" / "+temp_foodDetails["refigeratedFrozenStable"])
+  var ContactDTText = document.createTextNode(data["requestEndTime"]);
+  var DrNameText = document.createTextNode(temp_driverDetails["name"]);
+  var DrPhoneText = document.createTextNode(temp_driverDetails["phoneNumber"]);
+  var FItemText = document.createTextNode(temp_foodDetails["foodType"] + " : " + temp_foodDetails["foodAmount"]);
+  var RRejectionText = document.createTextNode(rejectionReason_text);
+  var ILocationText = document.createTextNode(temp_driverDetails["currentCity"]);
+  var DestinationText = document.createTextNode(temp_driverDetails["destinationCity"]);
+  var FinalRecipientText = document.createTextNode(data["finalRecipient"]);
+
+
+  ContactDTCell.appendChild(ContactDTText);
+  DrNameCell.appendChild(DrNameText);
+  DrPhoneCell.appendChild(DrPhoneText);
+  FItemCell.appendChild(FItemText);
+  FStatusCell.appendChild(FStatusText);
+  RRejectionCell.appendChild(RRejectionText);
+  ILocationCell.appendChild(ILocationText);
+  DestinationCell.appendChild(DestinationText);
+  FinalRecipientCell.appendChild(FinalRecipientText);
+
+  var btn = document.createElement("BUTTON");
+  btn.className="btn btn-primary btn-sml text-nowrap";
+  btn.innerHTML = index + '<i class="fa-solid fa-caret-down"></i>';
+  btn.setAttribute("type","button");
+  btn.setAttribute("data-bs-toggle","collapse");
+  btn.setAttribute("data-bs-target","#r"+index);
+  buttonCell.appendChild(btn);
+
+
+
+  temp_recipientDetails = data["recipientsOrder"];
+
+  var hiddenTable = document.createElement("TABLE");
+  hiddenTable.className="table table-striped";
+
+  var tblHead = document.createElement("thead");
+  hiddenTable.appendChild(tblHead);
+
+  var row = document.createElement("tr");
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Recipient Name");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Contact Number");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Response Status");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+  tblHead.appendChild(row);
+
+  var tblBody = document.createElement("tbody");
+  tblBody.setAttribute("class","table-group-divider");
+
+
+
+  for (var i=0; i < temp_recipientDetails.length; i++) {
+      var hiddenRow = document.createElement("tr");
+      temp = temp_recipientDetails[i];
+
+      re_added_string="";
+      if("reAddBool" in temp){
+        re_added_string = " (re-added to queue)";
+      }
+      console.log("Re add String", re_added_string)
+
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(temp["recipientName"]+re_added_string);
+      cell.appendChild(cellText);
+      hiddenRow.appendChild(cell);
+
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(temp["contactNumber"]);
+      cell.appendChild(cellText);
+      hiddenRow.appendChild(cell);
+
+      temp = data["responseStatus"];
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(temp[i]);
+      cell.appendChild(cellText);
+      hiddenRow.appendChild(cell);
+
+      tblBody.appendChild(hiddenRow);
+  }
+
+  
+  hiddenTable.appendChild(tblBody);
+
+  row1 = tableBody.insertRow(2);
+  row1.setAttribute("class","collapse accordion-collapse accordion-flush");
+  row1.setAttribute("id","r"+index);
+  row1.setAttribute("data-bs-parent","pastDon");
+  cell1 = row1.insertCell(0);
+  cell1.colSpan = "9";
+  cell1.appendChild(hiddenTable);
+
+
+  var hiddenTable2 = document.createElement("TABLE");
+  hiddenTable2.className="table table-striped";
+
+  var tblHead = document.createElement("thead");
+  hiddenTable2.appendChild(tblHead);
+
+  var row = document.createElement("tr");
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Final Recipient Feedback");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+
+  var cell = document.createElement("th");
+  var cellText = document.createTextNode("Drivers Feedback");
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+
+  tblHead.appendChild(row);
+
+  var tblBody = document.createElement("tbody");
+  tblBody.setAttribute("class","table-group-divider");
+
+  var hiddenRow = document.createElement("tr");
+  var cell = document.createElement("td");
+  var cellText = document.createTextNode(feedback_food_bank);
+  cell.appendChild(cellText);
+  hiddenRow.appendChild(cell);
+
+  var cell = document.createElement("td");
+  var cellText = document.createTextNode(feedback_driver);
+  cell.appendChild(cellText);
+  hiddenRow.appendChild(cell);
+
+  tblBody.appendChild(hiddenRow);
+  hiddenTable2.appendChild(tblBody);
+
+  cell1.appendChild(hiddenTable2);
+
+  
+
+  var matchingID = `'${data["matchingID"]}'`;
+  var btn = document.createElement("BUTTON");
+  btn.className = "btn btn-primary";
+  btn.appendChild(document.createTextNode("Delete"));
+  btn.setAttribute("onclick", `deleteDonation(${matchingID})`);
+  deleteButton.appendChild(btn);
+
+  var btn = document.createElement("BUTTON");
+  btn.className = "btn btn-primary";
+  btn.appendChild(document.createTextNode("Edit"));
+  btn.setAttribute("onclick", `editDonation(this,${matchingID})`);
+  editButton.appendChild(btn);
+
+}
+
+function deleteDonation(element){
+
+  if(confirm('Are you sure?')) {
+          deleteDonationAPI(element);
+    }
+}
+
+function deleteDonationAPI(element){
+  var myHeaders = new Headers();
+  var raw = JSON.stringify({"method": "DELETE","matchingID": element});
+
+  var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+  };
+
+  var url = "https://7eu9xw2oma.execute-api.us-east-2.amazonaws.com/default/editMatchings"
+  // make API call with parameters and use promises to get response
+  fetch(url, requestOptions)
+  .then(response => response.text())
+  .then(
+      function(result) {
+          GetPastMatchingsAPI();
+      })
+  .catch(error => console.log('error', error));
+
+}
+
+function editDonation(element, id){
+
+  document.getElementById("addDonationButton").innerText = "Edit Donation";
+  document.getElementById("addDonationButton").onclick = function() {editDonationApi(id) };
+
+
+  var row=element.parentNode.parentNode;
+  var myModal = new bootstrap.Modal(document.getElementById('addDonationModal'));
+  myModal.toggle();
+  document.getElementById("add-drivers-name").value = row.cells[2].innerHTML;
+  document.getElementById("add-drivers-number").value = row.cells[3].innerHTML;
+  document.getElementById("add-food-item").value = row.cells[4].innerHTML.split(" : ")[0];
+  document.getElementById("add-food-amount").value = row.cells[4].innerHTML.split(" : ")[1];
+  document.getElementById("add-rejection-reason").value = row.cells[6].innerHTML;
+  document.getElementById("add-initial-location").value = row.cells[7].innerHTML;
+  document.getElementById("add-destination").value = row.cells[8].innerHTML;
+  var finalRecipient = row.cells[9].innerHTML;
+
+  var packaging = row.cells[5].innerHTML.split(" / ")[0];
+  var refrig = row.cells[5].innerHTML.split(" / ")[1];
+
+  console.log(packaging);
+  console.log(refrig)
+
+  if(packaging === "In bulk"){
+    document.getElementById("option-bulk").selected = 'selected';
+  }else{
+    document.getElementById("option-packaged").selected = 'selected';
+  }
+
+  if(refrig === "Frozen"){
+    document.getElementById("option-frozen").selected = 'selected';
+  }else if(refrig === "Refrigerated"){
+    document.getElementById("option-refrigerated").selected = 'selected';
+  }else{
+    document.getElementById("option-stable").selected = 'selected';
+  } 
+
+
+  var option = document.getElementById(`option: ${finalRecipient}`);
+
+  if(option){
+    option.selected = 'selected';
+  }else{
+    $("#add-final-recipient").append(`<option value="${finalRecipient}" id="option: ${finalRecipient}">${finalRecipient}</option>`);
+    document.getElementById("donation-modal-close").onclick = function(){ removeElement(`option: ${finalRecipient}`)};
+  }
+  
+}
+
+function editDonationApi(id){
+  var myHeaders = new Headers();
+  var driversName = document.getElementById("add-drivers-name").value;
+  var driversNumber = document.getElementById("add-drivers-number").value;
+  var foodItem = document.getElementById("add-food-item").value ;
+  var foodAmount = document.getElementById("add-food-amount").value ;
+  var rejectionReason = document.getElementById("add-rejection-reason").value ;
+  var initialLocation = document.getElementById("add-initial-location").value ;
+  var destination = document.getElementById("add-destination").value ;
+  var finalRecipient = document.getElementById("add-final-recipient").value ;
+  var otherInfo = document.getElementById("add-other-info").value ;
+  var foodStatus = document.getElementById("add-food-refrig").value ;
+  var foodPackage = document.getElementById("add-food-package").value ;
+
+  var raw = JSON.stringify({"method": "POST",
+                            "matchingID": id,
+                            "otherInfo": otherInfo,
+                            "finalRecipient": finalRecipient,
+                            "destination": destination,
+                            "initialLocation": initialLocation,
+                            "rejectionReason": rejectionReason,
+                            "foodAmount": foodAmount,
+                            "foodItem": foodItem,
+                            "foodPackage": foodPackage,
+                            "foodStatus": foodStatus,
+                            "driversNumber": driversNumber,
+                            "driversName": driversName
+                            });
+
+  var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+  };
+
+  var url = "https://7eu9xw2oma.execute-api.us-east-2.amazonaws.com/default/editMatchings"
+  // make API call with parameters and use promises to get response
+  fetch(url, requestOptions)
+  .then(response => response.text())
+  .then(
+      function(result) {
+          GetRecipientsAPI("False");
+          GetPastMatchingsAPI();
+      })
+  .catch(error => console.log('error', error));
+  
+}
+
+
+function addDonation(){
+  document.getElementById("addDonationButton").innerText = "Add Donation";
+  document.getElementById("addDonationButton").onclick = addDonationApi;
+
+  
+  var myModal = new bootstrap.Modal(document.getElementById('addDonationModal'));
+  myModal.toggle();
+  document.getElementById("add-drivers-name").value = "";
+  document.getElementById("add-drivers-number").value = "";
+  document.getElementById("add-food-item").value = "";
+  document.getElementById("add-food-amount").value = "";
+  document.getElementById("add-rejection-reason").value = "";
+  document.getElementById("add-initial-location").value = "";
+  document.getElementById("add-destination").value = "";
+  document.getElementById("add-other-info").value = "";
+  console.log("Add Donation Initiated!");
+
+}
+
+function addDonationApi(){
+  var myHeaders = new Headers();
+  var driversName = document.getElementById("add-drivers-name").value;
+  var driversNumber = document.getElementById("add-drivers-number").value;
+  var foodItem = document.getElementById("add-food-item").value ;
+  var foodAmount = document.getElementById("add-food-amount").value ;
+  var rejectionReason = document.getElementById("add-rejection-reason").value ;
+  var initialLocation = document.getElementById("add-initial-location").value ;
+  var destination = document.getElementById("add-destination").value ;
+  var finalRecipient = document.getElementById("add-final-recipient").value ;
+  var otherInfo = document.getElementById("add-other-info").value ;
+  var foodStatus = document.getElementById("add-food-refrig").value ;
+  var foodPackage = document.getElementById("add-food-package").value ;
+
+
+  var raw = JSON.stringify({"method": "PUT",
+                            "otherInfo": otherInfo,
+                            "finalRecipient": finalRecipient,
+                            "destination": destination,
+                            "initialLocation": initialLocation,
+                            "rejectionReason": rejectionReason,
+                            "foodAmount": foodAmount,
+                            "foodItem": foodItem,
+                            "foodPackage": foodPackage,
+                            "foodStatus": foodStatus,
+                            "driversNumber": driversNumber,
+                            "driversName": driversName
+                            });
+
+  var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+  };
+
+  var url = "https://7eu9xw2oma.execute-api.us-east-2.amazonaws.com/default/editMatchings"
+  // make API call with parameters and use promises to get response
+  fetch(url, requestOptions)
+  .then(response => response.text())
+  .then(
+      function(result) {
+          GetRecipientsAPI("False");
+          GetPastMatchingsAPI();
+      })
+  .catch(error => console.log('error', error));
+}
+
+
+
+function deleteOnClick(o)
+{
+    if(confirm('Are you sure?')) {
+        	var p=o.parentNode.parentNode;
+   		    p.parentNode.removeChild(p);
+          //alert(p.cells[0].innerHTML);
+          DeleteRecipientAPI(p.cells[0].innerHTML);
+    }
+
+}
+
+
+ // define the callAPI function that takes a first name and last name as parameters
+function DeleteRecipientAPI(recipientName){
+           // instantiate a headers object
+           var myHeaders = new Headers();
+           var raw = JSON.stringify({"recipientName":recipientName});
+
+           var requestOptions = {
+               method: 'DELETE',
+               headers: myHeaders,
+               body: raw,
+               redirect: 'follow'
+           };
+
+           var url = "https://xy6ff20rf6.execute-api.us-east-2.amazonaws.com/default/DeleteRecipient"
+           // make API call with parameters and use promises to get response
+           var response = fetch(url, requestOptions);
+           console.log(response);
+
+           return response;
+}
+
+
+// define the callAPI function that takes a first name and last name as parameters
+function AddRecipientAPI(){
+
+           var recipientName = document.getElementById('add-recipient-name').value
+           var contactNumber = document.getElementById('add-contact-number').value
+           var recipientLocation = document.getElementById('add-location').value
+
+           var opentime_monday = document.getElementById('add-time-open-monday').value
+           var opentime_tuesday = document.getElementById('add-time-open-tuesday').value
+           var opentime_wednesday = document.getElementById('add-time-open-wednesday').value
+           var opentime_thursday = document.getElementById('add-time-open-thursday').value
+           var opentime_friday = document.getElementById('add-time-open-friday').value
+           var opentime_saturday = document.getElementById('add-time-open-saturday').value
+           var opentime_sunday = document.getElementById('add-time-open-sunday').value
+
+           var closetime_monday = document.getElementById('add-time-close-monday').value
+           var closetime_tuesday = document.getElementById('add-time-close-tuesday').value
+           var closetime_wednesday = document.getElementById('add-time-close-wednesday').value
+           var closetime_thursday = document.getElementById('add-time-close-thursday').value
+           var closetime_friday = document.getElementById('add-time-close-friday').value
+           var closetime_saturday = document.getElementById('add-time-close-saturday').value
+           var closetime_sunday = document.getElementById('add-time-close-sunday').value
+
+           var open_monday = document.getElementById('open-monday-checkbox').checked
+           var open_tuesday = document.getElementById('open-tuesday-checkbox').checked
+           var open_wednesday = document.getElementById('open-wednesday-checkbox').checked
+           var open_thursday = document.getElementById('open-thursday-checkbox').checked
+           var open_friday = document.getElementById('open-friday-checkbox').checked
+           var open_saturday = document.getElementById('open-saturday-checkbox').checked
+           var open_sunday = document.getElementById('open-sunday-checkbox').checked
+
+
+
+           // instantiate a headers object
+           var myHeaders = new Headers();
+           // add content type header to object
+           myHeaders.append("Content-Type", "text/plain");
+           // using built in JSON utility package turn object to string and store in a variable
+           var raw = JSON.stringify({"type": "Add",
+                                    "recipientName":recipientName,
+                                     "contactNumber": contactNumber,
+                                     "recipientLocation":recipientLocation,
+                                     "opentimeMonday":opentime_monday,
+                                     "opentimeTuesday":opentime_tuesday,
+                                     "opentimeWednesday":opentime_wednesday,
+                                     "opentimeThursday":opentime_thursday,
+                                     "opentimeFriday":opentime_friday,
+                                     "opentimeSaturday":opentime_saturday,
+                                     "opentimeSunday":opentime_sunday,
+                                     "closetimeMonday":closetime_monday,
+                                     "closetimeTuesday":closetime_tuesday,
+                                     "closetimeWednesday":closetime_wednesday,
+                                     "closetimeThursday":closetime_thursday,
+                                     "closetimeFriday":closetime_friday,
+                                     "closetimeSaturday":closetime_saturday,
+                                     "closetimeSunday":closetime_sunday,
+                                     "openMonday":open_monday,
+                                     "openTuesday":open_tuesday,
+                                     "openWednesday":open_wednesday,
+                                     "openThursday":open_thursday,
+                                     "openFriday":open_friday,
+                                     "openSaturday":open_saturday,
+                                     "openSunday":open_sunday});
+
+
+
+          // create a JSON object with parameters for API call and store in a variable
+          var requestOptions = {
+                                        method: 'PUT',
+                                        headers: myHeaders,
+                                        body: raw,
+                                        redirect: 'follow'
+          };
+          // make API call with parameters and use promises to get response
+          fetch("https://od2zy7djnl.execute-api.us-east-2.amazonaws.com/default/AddRecipientAPI", requestOptions)
+                                    .then(response => response.text())
+                                    .then(
+                                        function(result) {
+                                            console.log(JSON.parse(result).body);
+                                            GetRecipientsAPI("False");
+                                        })
+                                    .catch(error => console.log('error', error));
+
+}
+
+
+</script>
+
+
+
+    <script type="text/javascript">
+    $(function() {
+
+        var start = moment().subtract(6, 'days');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('M/D/YYYY') + ' - ' + end.format('M/D/YYYY'));
+            GetPastMatchingsAPI();
+        }
+
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+               'Today': [moment(), moment()],
+               'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+               'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+               'Last 6 Months': [moment().subtract(6, 'month').startOf('month'), moment()],
+               'Last Year': [moment().subtract(12, 'month').startOf('month'), moment()]
+            }
+        }, cb);
+
+        cb(start, end);
+
+    });
+</script>
+<script>
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    downloadLink = document.createElement("a");
+
+    downloadLink.download = filename;
+
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    downloadLink.style.display = "none";
+
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+}
+
+
+function exportTableToCSV() {
+    var csv = [];
+    var rows = document.getElementById("pastDon").querySelectorAll("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+        if(cols.length === 12){
+          for (var j = 0; j < 10; j++)
+              row.push(`"${cols[j].innerText}"`);
+
+          csv.push(`${row.join(",")}`);
+        }
+    }
+
+    // Download CSV file
+    var selectedDate = document.getElementById("dateRangeSelector").innerHTML;
+    downloadCSV(csv.join("\n"), `Past_Donations_${selectedDate}.csv`);
+}
+
+</script>
+
+</body>
+</html>

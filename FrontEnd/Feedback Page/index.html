@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IHN Food Drop Feedback</title>
+    <style>
+    
+/* Loading screen styles */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of other elements */
+}
+
+/* Loading bubble animation */
+@keyframes loading {
+    0% {
+        transform: scale(0);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0.2;
+    }
+}
+
+#loading-bubble {
+    width: 50px;
+    height: 50px;
+    background-color: #007bff; /* Blue color */
+    border-radius: 50%;
+    animation: loading 1.5s infinite; /* Apply the animation */
+}
+
+    /* Add styles for the star rating system */
+.rating {
+    display: flex;
+    align-items: center;
+    
+    margin: 10px 0;
+}
+
+.rating label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.stars {
+    font-size: 24px;
+    color: #FFD700; /* Golden yellow color for stars */
+}
+
+.star {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.star:hover {
+    transform: scale(1.2); /* Enlarge the star on hover */
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px;
+            background-color: transparent;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 28px; /* Increase font size for the title */
+            margin-top: 20px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Use a friendly font-family */
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo img {
+            max-width: 25%; /* Set the image max-width to 30% */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background-color: transparent;
+            margin-bottom: 20px; /* Add space between the image and feedback box */
+        }
+
+        .container {
+            max-width: 100%; /* Make the container responsive */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            margin: 0;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        /* Adjust the width and add margin for the feedback input */
+        #feedback {
+            width: 100%;
+            margin: 10px 0; /* Margin adjustment to align properly */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            box-sizing: border-box; /* Ensure the padding doesn't affect width */
+        }
+
+        button {
+            display: block;
+            margin: 10px auto; /* Center align the button */
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Add a transition effect for hover */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #response {
+            font-weight: bold;
+            text-align: center;
+            color: green;
+        }
+
+        /* Media query for screens smaller than 768px (typical mobile devices) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px; /* Reduce padding for smaller screens */
+            }
+            h1 {
+                font-size: 24px; /* Decrease font size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div id="loading-bubble"></div>
+    </div>
+
+    <header>
+        <h1>IHN Food Drop Feedback</h1>
+    </header>
+
+    <div class="logo">
+        <img src="http://indyfooddrop.org/wp-content/uploads/2017/01/Indy-Food-Drop-Logo-edit2-01.png" alt="IHN Food Drop Logo">
+    </div>
+
+    <div class="container">
+        <!-- Display strings obtained from API 1 -->
+        <p><span id="string1"></span></p>
+        <p>We would love to hear any feedback or suggestions you have regarding the entire process. Please write and submit your feedback below to share it with us. Thank you! </p>
+        
+        <br>
+        <!--span id="string2"></span-->
+        
+<!-- Updated star rating HTML -->
+<!--<label for="rating">Rating:</label>-->
+<!--<div class="rating">-->
+<!--    <div class="stars">-->
+<!--        <span class="star" id="star1" onclick="rate(1)">☆</span>-->
+<!--        <span class="star" id="star2" onclick="rate(2)">☆</span>-->
+<!--        <span class="star" id="star3" onclick="rate(3)">☆</span>-->
+<!--        <span class="star" id="star4" onclick="rate(4)">☆</span>-->
+<!--        <span class="star" id="star5" onclick="rate(5)">☆</span>-->
+<!--    </div>-->
+<!--</div>-->
+
+        <br>
+
+        <label id="feedback_text" for="feedback">Feedback:</label>
+        <textarea id="feedback" rows="4" cols="50" style="font-size: 16px;"></textarea>
+
+        <button id="feedbackButton" onclick="submitFeedback()">Submit Feedback</button>
+
+        <!-- <p id="response"></p> -->
+
+        <!-- Add a new element to display the API response -->
+        <!-- <div id="apiResponse" style="display: none;"></div> -->
+        <h2 style="text-align: center;"><span id = "apiResponse"></span></h2>
+    </div>
+
+    <script>
+
+// Variable to store the selected rating
+let selectedRating = 0;
+
+// JavaScript code for controlling the loading screen
+window.addEventListener("load", function () {
+    // Show the loading screen
+    document.getElementById("loading-screen").style.display = "flex";
+
+    const matchingID = getParameterByName('matchingID');
+    const is_truck_driver = String(getParameterByName('td') != null);
+    // const recipientID = getParameterByName('recipientID');
+
+    console.log(is_truck_driver)
+
+    if (matchingID) {
+
+        // Call API 1 with matchingID and recipientID
+        // Replace the following URL with your actual API 1 endpoint
+        const apiUrl = `https://ylcndrifu9.execute-api.us-east-2.amazonaws.com/default/FeedbackPageContentAPI`;
+
+        var myHeaders = new Headers();
+
+        var raw = JSON.stringify({"matchingID":matchingID, "is_truck_driver": is_truck_driver});
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+
+        fetch(apiUrl, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // Update the string1 and string2 elements with the data from API 1
+                
+                form_data = JSON.parse(data.body)
+                
+                if(form_data.feedback_already_present == 1){
+                    // Hide all content on the webpage
+                    document.body.innerHTML = '<header><h1>IHN Food Drop Feedback</h1></header><div class="logo"><img src="http://indyfooddrop.org/wp-content/uploads/2017/01/Indy-Food-Drop-Logo-edit2-01.png" alt="IHN Food Drop Logo"></div><h2 style="text-align: center;">The feedback for this donation has already been submitted. <br> Thank you!</h2>';
+                } else {
+                    // Show the content if feedback_already_present is not 1
+
+                    if(is_truck_driver == "true"){
+                        document.getElementById('string1').textContent = "We hope the donation of " + form_data.foodType + " you completed earlier went well!";
+                    }
+                    else {
+                        document.getElementById('string1').textContent = "We hope the donation of " + form_data.foodType + " you received earlier went well!";
+                    }
+                }
+            }).then(function () {
+                // API call is complete
+                // Hide the loading screen
+                document.getElementById("loading-screen").style.display = "none";
+            }).catch(error => console.error('Error fetching data from API 1:', error))
+            .catch(error => console.error('Error calling API 2:', error));
+    }
+
+});
+
+
+// Function to update the star rating display
+function updateStars() {
+    for (let i = 1; i <= 5; i++) {
+        const star = document.getElementById(`star${i}`);
+        if (i <= selectedRating) {
+            star.textContent = '★'; // Fill the star
+        } else {
+            star.textContent = '☆'; // Empty the star
+        }
+    }
+}
+
+// Function to handle star rating clicks
+function rate(rating) {
+    selectedRating = rating;
+    updateStars();
+
+    // Call the submitFeedback function here to submit feedback when a rating is selected
+    submitFeedback();
+}
+
+// Function to submit feedback along with the rating
+function submitFeedback() {
+    // Get matchingID, recipientID, and feedback text
+
+        // Show the loading screen
+        document.getElementById("loading-screen").style.display = "flex";
+
+        const matchingID = getParameterByName('matchingID');
+        const is_truck_driver = String(getParameterByName('td') != null);
+        const feedbackText = document.getElementById('feedback').value;
+
+        // Dummy API 2 call (replace with your actual API 2 endpoint and implementation)
+        const apiUrl2 = `https://hkpooxxrsb.execute-api.us-east-2.amazonaws.com/default/AddFeedbackForMatching`;
+
+        // Define the data to send to API 2 (matchingID, recipientID, feedback text, and rating)
+        const data = {
+            matchingID: matchingID,
+            feedback: feedbackText,
+            is_truck_driver: is_truck_driver
+        };
+
+        // Make a POST request to API 2
+        fetch(apiUrl2, {
+            method: 'POST',
+            headers: new Headers(),
+            body: JSON.stringify(data),
+            redirect: 'follow'
+        })
+        .then(response => response.json())
+        .then(responseData => {
+            // Display the response message from API 2
+            document.body.innerHTML = '<header><h1>IHN Food Drop Feedback</h1></header><div class="logo"><img src="http://indyfooddrop.org/wp-content/uploads/2017/01/Indy-Food-Drop-Logo-edit2-01.png" alt="IHN Food Drop Logo"></div><h2 style="text-align: center;">' + responseData.body + '</h2>';
+
+            // Optionally, you can remove the textarea element if needed
+            // document.getElementById('feedback').remove();
+        }).then(response => {document.getElementById("loading-screen").style.display = "none";})
+        .catch(error => console.error('Error calling API 2:', error));
+    
+}
+
+// Function to get URL parameters
+function getParameterByName(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+function getMatchingData(){
+    // Fetch string1 and string2 from API 1 using matchingID and recipientID
+    const matchingID = getParameterByName('matchingID');
+    // const recipientID = getParameterByName('recipientID');
+    if (matchingID) {
+        // Call API 1 with matchingID and recipientID
+        // Replace the following URL with your actual API 1 endpoint
+        const apiUrl = `https://ylcndrifu9.execute-api.us-east-2.amazonaws.com/default/FeedbackPageContentAPI`;
+
+        var myHeaders = new Headers();
+        // add content type header to object
+        // myHeaders.append("Content-Type", "application/json");
+
+        // using built in JSON utility package turn object to string and store in a variable
+        var raw = JSON.stringify({"matchingID":matchingID});
+
+        // create a JSON object with parameters for API call and store in a variable
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch(apiUrl, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // Update the string1 and string2 elements with the data from API 1
+                document.getElementById('string1').textContent = JSON.parse(data.body).foodType;
+            })
+            .catch(error => console.error('Error fetching data from API 1:', error));
+        }
+
+    }
+    </script>
+</body>
+</html>
